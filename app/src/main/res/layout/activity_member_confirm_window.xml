@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MemberConfirmWindow">
+
+    <TextView
+        android:id="@+id/confirmationViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="72dp"
+        android:text="Is This You?"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameConfirmTextLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:text="Name:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationViewText" />
+
+    <TextView
+        android:id="@+id/nameConfirmViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:text="Name"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/nameConfirmTextLabel"
+        tools:layout_editor_absoluteY="145dp" />
+
+    <TextView
+        android:id="@+id/membershipConfirmLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="40dp"
+        android:text="Membership Type:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameConfirmTextLabel" />
+
+    <TextView
+        android:id="@+id/membershipViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Membership"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/membershipConfirmLabel"
+        tools:layout_editor_absoluteY="226dp" />
+
+    <Button
+        android:id="@+id/yesConfirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="88dp"
+        android:text="Yes"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/membershipConfirmLabel" />
+
+    <Button
+        android:id="@+id/noConfirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="88dp"
+        android:text="No"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/yesConfirmButton"
+        app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+
+    <Button
+        android:id="@+id/updateConfirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="88dp"
+        android:text="Needs Updating"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/noConfirmButton"
+        app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+</android.support.constraint.ConstraintLayout>
