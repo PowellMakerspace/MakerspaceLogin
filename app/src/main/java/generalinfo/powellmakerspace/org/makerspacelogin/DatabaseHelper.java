@@ -166,32 +166,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param member_name String for the name of the member being searched
      * @return member object with all of the relevant member information
      */
-    public Member getMember(String member_name){
-        // Get readable database
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // Define query string
-        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + member_name;
-
-        // Add query to database log
-        Log.e(LOG, selectQuery);
-
-        // Define cursor for query
-        Cursor c = db.rawQuery(selectQuery,null);
-
-        // As long as the cursor isn't null, move to the first
-        if (c != null)
-            c.moveToFirst();
-
-        // Create member object from database
-        Member member = new Member();
-        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
-        member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
-        member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
-
-        // Return member object
-        return member;
-    }
+//    public Member getMemberByName(String member_name){
+//        // Get readable database
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // Define query string
+//        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + member_name;
+//
+//        // Add query to database log
+//        Log.e(LOG, selectQuery);
+//
+//        // Define cursor for query
+//        Cursor c = db.rawQuery(selectQuery,null);
+//
+//        // As long as the cursor isn't null, move to the first
+//        if (c != null)
+//            c.moveToFirst();
+//
+//        // Create member object from database
+//        Member member = new Member();
+//        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+//        member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
+//        member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+//
+//        // Return member object
+//        return member;
+//    }
 
     /**
      * Gets all of the member information

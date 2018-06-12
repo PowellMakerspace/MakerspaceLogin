@@ -20,6 +20,8 @@ public class NewMemberWindow extends AppCompatActivity {
 
     Button createMemberButton;
 
+    long memberId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class NewMemberWindow extends AppCompatActivity {
         memberNameEditText = (EditText) findViewById(R.id.memberNameEditText);
 
         membershipRadioGroup = (RadioGroup) findViewById(R.id.membershipRadioGroup);
+
         createMemberButton = (Button) findViewById(R.id.createMemberButton);
 
 
@@ -50,16 +53,13 @@ public class NewMemberWindow extends AppCompatActivity {
                 Member newMember = new Member(memberName, membershipType);
 
                 // Add new member to the database
-                makerspaceDatabase.createMember(newMember);
-
-                // Retrieve member from database to get member ID number
-                newMember = makerspaceDatabase.getMember(memberName);
+                memberId = makerspaceDatabase.createMember(newMember);
 
                 // Create Intent
                 Intent launchSurveyWindow = new Intent(getApplicationContext(), SurveyWindow.class);
 
                 // Add info to be passed to next activity
-                launchSurveyWindow.putExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID", newMember.getMemberID());
+                launchSurveyWindow.putExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID", memberId);
 
                 // Move to next activity
                 startActivity(launchSurveyWindow);

@@ -1,11 +1,13 @@
 package generalinfo.powellmakerspace.org.makerspacelogin;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 
 public class PurposeWindow1 extends AppCompatActivity {
@@ -46,12 +48,23 @@ public class PurposeWindow1 extends AppCompatActivity {
                 // Set current time as arrival time
                 newVisit.setArrivalTime(System.currentTimeMillis()/1000);
 
+                // Set Departure time to zero - Flag that indicates currently active
+                newVisit.setDepartureTime(0);
+
                 // Find the selected RadioButton and set as purpose
                 int selectedId = purposeRadioGroup.getCheckedRadioButtonId();
                 purposeRadioButton = (RadioButton) findViewById(selectedId);
 
                 // Set purpose for visit
                 newVisit.setVisitPurpose(purposeRadioButton.getText().toString());
+
+                // Create notification to welcome guest and let them know they have logged in properly
+                Toast welcomeNotification = Toast.makeText(getApplicationContext(), "Welcome to the Powell Makerspace!",Toast.LENGTH_SHORT);
+                welcomeNotification.show();
+
+                // Return to the WelcomeWindow
+                Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                startActivity(launchWelcomeWindow);
 
 
             }
