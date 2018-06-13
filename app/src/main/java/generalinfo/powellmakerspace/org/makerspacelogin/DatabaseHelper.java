@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -153,7 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Create member object from database
         Member member = new Member();
-        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_NAME)));
+        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
         member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
         member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
 
@@ -165,33 +166,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Get member based on name
      * @param member_name String for the name of the member being searched
      * @return member object with all of the relevant member information
+     * There seems to be a problem with this code... unknown why
      */
-//    public Member getMemberByName(String member_name){
-//        // Get readable database
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        // Define query string
-//        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + member_name;
-//
-//        // Add query to database log
-//        Log.e(LOG, selectQuery);
-//
-//        // Define cursor for query
-//        Cursor c = db.rawQuery(selectQuery,null);
-//
-//        // As long as the cursor isn't null, move to the first
-//        if (c != null)
-//            c.moveToFirst();
-//
-//        // Create member object from database
-//        Member member = new Member();
-//        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
-//        member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
-//        member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
-//
-//        // Return member object
-//        return member;
-//    }
+    public Member getMemberByName(String member_name){
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define query string
+        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + member_name;
+
+        // Add query to database log
+        Log.e(LOG, selectQuery);
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery,null);
+
+        // As long as the cursor isn't null, move to the first
+        if (c != null)
+            c.moveToFirst();
+
+        // Create member object from database
+        Member member = new Member();
+        member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+        member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
+        member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+
+        // Return member object
+        return member;
+    }
 
     /**
      * Gets all of the member information
@@ -282,13 +284,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Collect data
         ContentValues values = new ContentValues();
+        values.put(KEY_MEMBER_ID, member.getMemberID());
         values.put(KEY_MEMBER_NAME, member.getMemberName());
         values.put(KEY_MEMBERSHIP_TYPE, member.getMembershipType());
 
+        // Define where arguments
+        String[] whereArgument = {String.valueOf(member.getMemberID())};
+
         // update row
-        return db.update(TABLE_MEMBERS, values, KEY_MEMBER_ID + " = ?",
-                new String[] { String.valueOf(member.getMemberID())});
+        return db.update(TABLE_MEMBERS, values, KEY_MEMBER_ID + " = ?", whereArgument);
     }
+
 
     /**
      * Deletes member information from the database.  This optionally includes the visits for that member

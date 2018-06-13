@@ -25,7 +25,7 @@ public class Member {
     }
 
     // Setters
-    public void setMemberID(long memberID){
+    public void setMemberID(int memberID){
         this.memberID = memberID;
     }
 
