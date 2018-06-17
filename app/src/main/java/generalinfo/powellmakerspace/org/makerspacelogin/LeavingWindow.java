@@ -55,6 +55,9 @@ public class LeavingWindow extends AppCompatActivity {
                 Visit visit = currentVisits.get(position);
                 visit.setDepartureTime(System.currentTimeMillis()/1000);
 
+                // update the database
+                makerspaceDatabase.updateVisit(visit);
+
                 Toast.makeText(getApplicationContext(),"Thank you for visiting!", Toast.LENGTH_LONG).show();
 
                 Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
