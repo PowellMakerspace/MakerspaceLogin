@@ -56,7 +56,7 @@ public class MemberConfirmWindow extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Launch Purpose Window
-                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow1.class);
+                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
                 launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID",member_id);
                 startActivity(launchPurposeWindow);
             }
@@ -78,7 +78,7 @@ public class MemberConfirmWindow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Launch Update Window1 and pass in the membership id
-                Intent launchUpdateWindow = new Intent(getApplicationContext(), UpdateWindow1.class);
+                Intent launchUpdateWindow = new Intent(getApplicationContext(), UpdateWindow.class);
                 launchUpdateWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", member_id);
                 startActivity(launchUpdateWindow);
             }

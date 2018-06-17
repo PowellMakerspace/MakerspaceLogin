@@ -25,19 +25,11 @@
         <activity android:name=".QRCodeWindow" />
         <activity android:name=".LoginSearchWindow" />
         <activity android:name=".MemberConfirmWindow" />
-        <activity
-            android:name=".UpdateWindow"
-            android:label="@string/title_activity_update_window"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".PurposeWindow"
-            android:label="@string/title_activity_purpose_window"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ArrivingWindow" />
         <activity android:name=".NewMemberWindow" />
         <activity android:name=".SurveyWindow" />
-        <activity android:name=".PurposeWindow1" />
-        <activity android:name=".UpdateWindow1" />
+        <activity android:name=".PurposeWindow" />
+        <activity android:name=".UpdateWindow" />
         <activity android:name=".LeavingWindow"></activity>
     </application>
 

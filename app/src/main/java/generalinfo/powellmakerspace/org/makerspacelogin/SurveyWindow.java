@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 public class SurveyWindow extends AppCompatActivity {
 
@@ -58,7 +56,7 @@ public class SurveyWindow extends AppCompatActivity {
                 makerspaceDatabase.createSurvey(newSurvey);
 
                 // Launch Purpose Window
-                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow1.class);
+                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
                 // Look for passed information - pass it on further
                 if (getIntent().hasExtra("org.powellmakerspace.generalinfo.MEMBER_ID")){
                     launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", getIntent().getExtras().getLong("org.powellmakerspace.generalinfo.MEMBER_ID"));
@@ -72,7 +70,7 @@ public class SurveyWindow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start new intent
-                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow1.class);
+                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
 
                 // Look for passed information - pass it on further
                 if (getIntent().hasExtra("org.powellmakerspace.generalinfo.MEMBER_ID")){
