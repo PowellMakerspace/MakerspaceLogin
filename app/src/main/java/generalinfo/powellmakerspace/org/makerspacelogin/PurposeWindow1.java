@@ -41,8 +41,11 @@ public class PurposeWindow1 extends AppCompatActivity {
                 newVisit = new Visit();
 
                 // Set member id
-                if (getIntent().hasExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID")){
-                    newVisit.setMemberID(getIntent().getExtras().getLong("org.powellmakerspace.makerspacelogin.MEMBER_ID"));
+                if (getIntent().hasExtra("org.powellmakerspace.generalinfo.MEMBER_ID")){
+                    newVisit.setMemberID(getIntent().getExtras().getLong("org.powellmakerspace.generalinfo.MEMBER_ID"));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "member ID not transferred",Toast.LENGTH_LONG).show();
                 }
 
                 // Set current time as arrival time
@@ -57,6 +60,9 @@ public class PurposeWindow1 extends AppCompatActivity {
 
                 // Set purpose for visit
                 newVisit.setVisitPurpose(purposeRadioButton.getText().toString());
+
+                // Add visit record to database
+                makerspaceDatabase.createVisit(newVisit);
 
                 // Create notification to welcome guest and let them know they have logged in properly
                 Toast welcomeNotification = Toast.makeText(getApplicationContext(), "Welcome to the Powell Makerspace!",Toast.LENGTH_SHORT);

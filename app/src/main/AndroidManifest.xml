@@ -37,7 +37,8 @@
         <activity android:name=".NewMemberWindow" />
         <activity android:name=".SurveyWindow" />
         <activity android:name=".PurposeWindow1" />
-        <activity android:name=".UpdateWindow1"></activity>
+        <activity android:name=".UpdateWindow1" />
+        <activity android:name=".LeavingWindow"></activity>
     </application>
 
 </manifest>

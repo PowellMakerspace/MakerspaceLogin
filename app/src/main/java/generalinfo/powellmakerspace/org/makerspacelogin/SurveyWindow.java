@@ -59,6 +59,11 @@ public class SurveyWindow extends AppCompatActivity {
 
                 // Launch Purpose Window
                 Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow1.class);
+                // Look for passed information - pass it on further
+                if (getIntent().hasExtra("org.powellmakerspace.generalinfo.MEMBER_ID")){
+                    launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", getIntent().getExtras().getLong("org.powellmakerspace.generalinfo.MEMBER_ID"));
+                }
+                // Continue to Purpose Window
                 startActivity(launchPurposeWindow);
             }
         });
@@ -70,8 +75,8 @@ public class SurveyWindow extends AppCompatActivity {
                 Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow1.class);
 
                 // Look for passed information - pass it on further
-                if (getIntent().hasExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID")){
-                    launchPurposeWindow.putExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID", getIntent().getExtras().getLong("org.powellmakerspace.makerspacelogin.MEMBER_ID"));
+                if (getIntent().hasExtra("org.powellmakerspace.generalinfo.MEMBER_ID")){
+                    launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", getIntent().getExtras().getLong("org.powellmakerspace.generalinfo.MEMBER_ID"));
                 }
 
                 // Continue to Purpose Window

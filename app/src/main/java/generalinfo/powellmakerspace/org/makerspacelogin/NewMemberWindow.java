@@ -59,7 +59,7 @@ public class NewMemberWindow extends AppCompatActivity {
                 Intent launchSurveyWindow = new Intent(getApplicationContext(), SurveyWindow.class);
 
                 // Add info to be passed to next activity
-                launchSurveyWindow.putExtra("org.powellmakerspace.makerspacelogin.MEMBER_ID", memberId);
+                launchSurveyWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", memberId);
 
                 // Move to next activity
                 startActivity(launchSurveyWindow);

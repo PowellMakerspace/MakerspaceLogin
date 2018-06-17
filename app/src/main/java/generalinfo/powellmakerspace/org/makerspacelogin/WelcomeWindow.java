@@ -17,12 +17,22 @@ public class WelcomeWindow extends AppCompatActivity {
         Button arrivingButton = (Button) findViewById(R.id.arrivingButton);
         arrivingButton.setOnClickListener(new View.OnClickListener() {
 
-                                              @Override
-                                              public void onClick(View v) {
-                                                  Intent launchArrivingWindow = new Intent(getApplicationContext(), ArrivingWindow.class);
-                                                  startActivity(launchArrivingWindow);
-                                              }
-                                          }
+              @Override
+              public void onClick(View v) {
+                  Intent launchArrivingWindow = new Intent(getApplicationContext(), ArrivingWindow.class);
+                  startActivity(launchArrivingWindow);
+              }
+          }
         );
+
+        // Launch leaving window
+        Button leavingButton = (Button) findViewById(R.id.leavingButton);
+        leavingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchLeavingWindow = new Intent(getApplicationContext(), LeavingWindow.class);
+                startActivity(launchLeavingWindow);
+            }
+        });
     }
 }
