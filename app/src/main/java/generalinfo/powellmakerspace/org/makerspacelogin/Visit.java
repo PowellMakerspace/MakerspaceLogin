@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Visit {
 
-    private  int visitID;
+    private long visitID;
     private long memberID;
     private long arrivalTime;
     private long departureTime;
@@ -14,7 +14,7 @@ public class Visit {
     public Visit(){
     }
 
-    public Visit(int visitID, long memberID, long arrivalTime, long departureTime, String visitPurpose){
+    public Visit(long visitID, long memberID, long arrivalTime, long departureTime, String visitPurpose){
         this.visitID = visitID;
         this.memberID = memberID;
         this.arrivalTime = arrivalTime;
@@ -23,7 +23,7 @@ public class Visit {
     }
 
     // Setters
-    public void setVisitID(int visitID) {
+    public void setVisitID(long visitID) {
         this.visitID = visitID;
     }
 
@@ -44,7 +44,7 @@ public class Visit {
     }
 
     // Getters
-    public int getVisitID() {
+    public long getVisitID() {
         return this.visitID;
     }
 

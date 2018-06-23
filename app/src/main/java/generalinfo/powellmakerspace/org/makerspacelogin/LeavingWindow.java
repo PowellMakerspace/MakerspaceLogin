@@ -51,17 +51,10 @@ public class LeavingWindow extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // set current time to logout
-                Visit visit = currentVisits.get(position);
-                visit.setDepartureTime(System.currentTimeMillis()/1000);
-
-                // update the database
-                makerspaceDatabase.updateVisit(visit);
-
-                Toast.makeText(getApplicationContext(),"Thank you for visiting!", Toast.LENGTH_LONG).show();
-
-                Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
-                startActivity(launchWelcomeWindow);
+                // Pass visit information to next activity
+                Intent launchLeavingConfirm = new Intent(getApplicationContext(), LeavingConfirmWindow.class);
+                launchLeavingConfirm.putExtra("org.powellmakerspace.generalinfo.VISIT_ID", currentVisits.get(position).getVisitID());
+                startActivity(launchLeavingConfirm);
             }
         });
     }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LeavingConfirmWindow">
+
+    <TextView
+        android:id="@+id/confirmLeavingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="60dp"
+        android:text="Please Confirm you have selected the correct entry"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/memberNameLeavingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="56dp"
+        android:text="Member Name"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmLeavingTextView" />
+
+    <TextView
+        android:id="@+id/membershipLeavingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="440dp"
+        android:layout_marginTop="64dp"
+        android:text="Membership"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmLeavingTextView" />
+
+    <Button
+        android:id="@+id/leavingConfirmButton"
+        android:layout_width="177dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="96dp"
+        android:text="Confirm"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memberNameLeavingTextView" />
+</android.support.constraint.ConstraintLayout>

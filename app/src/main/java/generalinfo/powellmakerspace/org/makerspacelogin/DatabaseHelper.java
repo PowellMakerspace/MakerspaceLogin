@@ -355,6 +355,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return visit_id;
     }
 
+    public Visit getVisit(long visit_id){
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define query string
+        String selectQuery = "SELECT * FROM " + TABLE_VISITS + " WHERE " + KEY_VISIT_ID + " = " + visit_id;
+
+        // Add query to database log
+        Log.e(LOG, selectQuery);
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // As long as the cursor isn't null, move to the first
+        if (c != null)
+            c.moveToFirst();
+
+        // Create member object from database
+        Visit visit = new Visit();
+        visit.setVisitID(c.getLong(c.getColumnIndex(KEY_VISIT_ID)));
+        visit.setMemberID(c.getLong(c.getColumnIndex(KEY_MEMBER_ID)));
+        visit.setArrivalTime(c.getInt(c.getColumnIndex(KEY_ARRIVAL_TIME)));
+        visit.setDepartureTime(c.getInt(c.getColumnIndex(KEY_DEPARTURE_TIME)));
+        visit.setVisitPurpose(c.getString(c.getColumnIndex(KEY_VISIT_PURPOSE)));
+
+        // Return member object
+        return visit;
+    }
+
     /**
      * Updates visit record in the database
      * @param visit Object containing the information about the visit

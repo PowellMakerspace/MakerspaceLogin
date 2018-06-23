@@ -30,7 +30,8 @@
         <activity android:name=".SurveyWindow" />
         <activity android:name=".PurposeWindow" />
         <activity android:name=".UpdateWindow" />
-        <activity android:name=".LeavingWindow"></activity>
+        <activity android:name=".LeavingWindow" />
+        <activity android:name=".LeavingConfirmWindow"></activity>
     </application>
 
 </manifest>

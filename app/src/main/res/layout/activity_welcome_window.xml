@@ -52,6 +52,7 @@
         android:layout_marginStart="604dp"
         android:text="Click the arrow below at any time to go back"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
