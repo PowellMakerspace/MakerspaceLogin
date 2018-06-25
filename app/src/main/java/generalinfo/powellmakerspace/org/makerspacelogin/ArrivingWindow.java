@@ -32,5 +32,15 @@ public class ArrivingWindow extends AppCompatActivity {
                 startActivity(launchNewMember);
             }
         });
+
+        // Launch the tour activity
+        Button tourButton = (Button) findViewById(R.id.tourButton);
+        tourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchTourWindow = new Intent(getApplicationContext(), TourWindow.class);
+                startActivity(launchTourWindow);
+            }
+        });
     }
 }

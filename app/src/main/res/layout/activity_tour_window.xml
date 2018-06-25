@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TourWindow">
+
+    <TextView
+        android:id="@+id/tourInformationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="64dp"
+        android:text="Please Fill in the Following Information About the Tour"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tourNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="76dp"
+        android:ems="10"
+        android:hint="Name of the Tour Group"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tourInformationTextView" />
+
+    <EditText
+        android:id="@+id/visitorNumberEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginStart="436dp"
+        android:layout_marginTop="76dp"
+        android:ems="10"
+        android:hint="Number of People"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tourInformationTextView" />
+
+    <Button
+        android:id="@+id/tourDoneButton"
+        android:layout_width="153dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="400dp"
+        android:layout_marginTop="124dp"
+        android:text="Done"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitorNumberEditText" />
+</android.support.constraint.ConstraintLayout>

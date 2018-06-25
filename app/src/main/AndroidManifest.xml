@@ -31,7 +31,8 @@
         <activity android:name=".PurposeWindow" />
         <activity android:name=".UpdateWindow" />
         <activity android:name=".LeavingWindow" />
-        <activity android:name=".LeavingConfirmWindow"></activity>
+        <activity android:name=".LeavingConfirmWindow" />
+        <activity android:name=".TourWindow" />
     </application>
 
 </manifest>

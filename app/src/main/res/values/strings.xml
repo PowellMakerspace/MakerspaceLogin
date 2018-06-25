@@ -16,5 +16,6 @@
     </string>
     <string name="title_activity_update_window">UpdateWindow</string>
     <string name="title_activity_purpose_window">PurposeWindow</string>
+    <string name="title_activity_leaving_type_window">LeavingTypeWindow</string>
 
 </resources>

@@ -32,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_MEMBERS = "members";
     private static final String TABLE_VISITS = "visits";
     private static final String TABLE_SURVEYS = "surveys";
+    private static final String TABLE_TOURS = "tours";
 
     // Column Names -- Members
     public static final String KEY_MEMBER_ID = "member_id";
@@ -49,6 +50,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_SURVEY_ID = "survey_id";
     public static final String KEY_LEARNED_ABOUT = "learned_about";
 
+    // Column Names -- Tours
+    public static final String KEY_TOUR_ID = "tour_id";
+    public static final String KEY_TOUR_NAME = "tour_name";
+    public static final String KEY_TOUR_VISITOR_NUMBER = "tour_visitor_number";
+    public static final String KEY_TOUR_ARRIVAL_TIME = "tour_arrival";
+    public static final String KEY_TOUR_DEPARTURE_TIME = "tour_departure";
+
     // Table Create Statements
     // Members table create statement
     private static final String CREATE_TABLE_MEMBERS = "CREATE TABLE " + TABLE_MEMBERS + "(" + KEY_MEMBER_ID +
@@ -62,6 +70,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Survey table create statement
     public static final String CREATE_TABLE_SURVEYS = "CREATE TABLE " + TABLE_SURVEYS + "(" + KEY_SURVEY_ID +
             " INTEGER PRIMARY KEY," + KEY_LEARNED_ABOUT + " TEXT" + ")";
+
+    // Tour table create statement
+    public static final String CREATE_TABLE_TOUR = "CREATE TABLE " + TABLE_TOURS + "(" + KEY_TOUR_ID +
+            " INTEGER PRIMARY KEY," + KEY_TOUR_NAME + " TEXT," + KEY_TOUR_VISITOR_NUMBER + " INTEGER," +
+            KEY_TOUR_ARRIVAL_TIME + " INTEGER," + KEY_TOUR_DEPARTURE_TIME + " INTEGER" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -83,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MEMBERS);
         db.execSQL(CREATE_TABLE_VISITS);
         db.execSQL(CREATE_TABLE_SURVEYS);
+        db.execSQL(CREATE_TABLE_TOUR);
     }
 
     /**
@@ -97,6 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEMBERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VISITS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SURVEYS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TOURS);
 
         // Create new tables
         onCreate(db);
@@ -562,5 +577,130 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] {String.valueOf(survey.getSurveyID())});
     }
 
+    /**
+     * ______________________________________________________________________________________
+     * Methods for interacting with the Tours table of the database
+     */
+
+    /**
+     * Create a new tour record in the database
+     * @param tour object to be recorded in the database
+     * @return the ID number of the tour record
+     */
+    public long createTour(Tour tour){
+
+        // Get writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Collect Content
+        ContentValues values = new ContentValues();
+        values.put(KEY_TOUR_NAME, tour.getTour_name());
+        values.put(KEY_TOUR_VISITOR_NUMBER, tour.getTour_visitor_number());
+        values.put(KEY_TOUR_ARRIVAL_TIME, tour.getTour_arrival_time());
+        values.put(KEY_TOUR_DEPARTURE_TIME, tour.getTour_departure_time());
+
+        // Insert row
+        long tour_id = db.insert(TABLE_TOURS, null, values);
+
+        // Return visit ID
+        return tour_id;
+    }
+
+    /**
+     * Pulls the tour record from the database based on ID
+     * @param tour_id ID number of the tour to query the database
+     * @return tour object from the database
+     */
+    public Tour getTour(long tour_id){
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define query string
+        String selectQuery = "SELECT * FROM " + TABLE_TOURS + " WHERE " + KEY_TOUR_ID + " = " + tour_id;
+
+        // Add query to database log
+        Log.e(LOG, selectQuery);
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // As long as the cursor isn't null, move to the first
+        if (c != null)
+            c.moveToFirst();
+
+        // Create member object from database
+        Tour tour = new Tour();
+        tour.setTour_id(c.getLong(c.getColumnIndex(KEY_TOUR_ID)));
+        tour.setTour_name(c.getString(c.getColumnIndex(KEY_TOUR_NAME)));
+        tour.setTour_visitor_number(c.getInt(c.getColumnIndex(KEY_TOUR_VISITOR_NUMBER)));
+        tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
+        tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
+
+        // Return member object
+        return tour;
+    }
+
+    /**
+     * Updates a given tour record in the database
+     * @param tour tour record to be updated
+     * @return number of rows affected by the update
+     */
+    public int updateTour(Tour tour){
+
+        // Get writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Collect Content
+        ContentValues values = new ContentValues();
+        values.put(KEY_TOUR_ID, tour.getTour_id());
+        values.put(KEY_TOUR_NAME, tour.getTour_name());
+        values.put(KEY_TOUR_VISITOR_NUMBER, tour.getTour_visitor_number());
+        values.put(KEY_TOUR_ARRIVAL_TIME, tour.getTour_arrival_time());
+        values.put(KEY_TOUR_DEPARTURE_TIME, tour.getTour_departure_time());
+
+        // Update Row
+        return db.update(TABLE_TOURS, values, KEY_TOUR_ID + " = ?",
+                new String[] {String.valueOf(tour.getTour_id())});
+    }
+
+    /**
+     * Gets a list of all active tours in the database
+     * @return List of all active tour objects
+     */
+    public List<Tour> getActiveTours(){
+
+        // Create visit list
+        List<Tour> tours = new ArrayList<>();
+
+        // Define query
+        String selectQuery = "SELECT * FROM " + TABLE_TOURS + " WHERE " + KEY_TOUR_DEPARTURE_TIME + " = 0";
+
+        // Add query to Database log
+        Log.e(LOG, selectQuery);
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if(c.moveToFirst()){
+            do{
+                Tour tour = new Tour();
+                tour.setTour_id(c.getLong(c.getColumnIndex(KEY_TOUR_ID)));
+                tour.setTour_name(c.getString(c.getColumnIndex(KEY_TOUR_NAME)));
+                tour.setTour_visitor_number(c.getInt(c.getColumnIndex(KEY_TOUR_VISITOR_NUMBER)));
+                tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
+                tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
+
+                // Add to the visit list
+                tours.add(tour);
+            } while (c.moveToNext());
+        }
+        // Return list of visits
+        return tours;
+    }
 }
 

@@ -14,7 +14,6 @@ public class MemberAdapter extends BaseAdapter {
     LayoutInflater mInflator;
     List<Member> allMemberList;
 
-
     public MemberAdapter(Context c, List<Member> allMemberList){
         this.allMemberList = allMemberList;
         mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
