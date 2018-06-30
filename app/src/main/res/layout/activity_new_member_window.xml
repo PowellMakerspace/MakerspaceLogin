@@ -107,12 +107,35 @@
 
     <Button
         android:id="@+id/createMemberButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="51dp"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="208dp"
         android:text="Create Member"
         app:layout_constraintStart_toEndOf="@+id/membershipRadioGroup"
         app:layout_constraintTop_toBottomOf="@+id/memberNameEditText" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="146dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="8dp"
+        android:text="Next"
+        app:layout_constraintStart_toEndOf="@+id/membershipRadioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/createMemberButton" />
+
+    <ImageView
+        android:id="@+id/QRDisplayImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/memberNameEditText"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
