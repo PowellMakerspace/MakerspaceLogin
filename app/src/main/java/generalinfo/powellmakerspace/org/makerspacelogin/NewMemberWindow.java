@@ -63,6 +63,7 @@ public class NewMemberWindow extends AppCompatActivity {
 
                 // Move to next activity
                 startActivity(launchSurveyWindow);
+                finish();
             }
         });
     }

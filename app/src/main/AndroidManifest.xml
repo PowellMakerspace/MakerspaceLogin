@@ -30,9 +30,12 @@
         <activity android:name=".SurveyWindow" />
         <activity android:name=".PurposeWindow" />
         <activity android:name=".UpdateWindow" />
-        <activity android:name=".LeavingWindow" />
-        <activity android:name=".LeavingConfirmWindow" />
+        <activity android:name=".LeavingVisitWindow" />
+        <activity android:name=".LeavingVisitConfirmWindow" />
         <activity android:name=".TourWindow" />
+        <activity android:name=".LeavingTypeWindow" />
+        <activity android:name=".LeavingTourWindow" />
+        <activity android:name=".LeavingTourConfirmWindow"></activity>
     </application>
 
 </manifest>

@@ -61,6 +61,7 @@ public class UpdateWindow extends AppCompatActivity {
                 Intent launchMemberConfirmWindow = new Intent(getApplicationContext(), MemberConfirmWindow.class);
                 launchMemberConfirmWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", member_id);
                 startActivity(launchMemberConfirmWindow);
+                finish();
             }
         });
     }

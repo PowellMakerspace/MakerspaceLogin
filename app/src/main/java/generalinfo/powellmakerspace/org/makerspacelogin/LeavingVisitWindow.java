@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeavingWindow extends AppCompatActivity {
+public class LeavingVisitWindow extends AppCompatActivity {
 
     DatabaseHelper makerspaceDatabase;
 
@@ -23,7 +22,7 @@ public class LeavingWindow extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaving_window);
+        setContentView(R.layout.activity_leaving_visit_window);
 
         // Begin Database Helper
         makerspaceDatabase = new DatabaseHelper(this);
@@ -52,9 +51,10 @@ public class LeavingWindow extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Pass visit information to next activity
-                Intent launchLeavingConfirm = new Intent(getApplicationContext(), LeavingConfirmWindow.class);
+                Intent launchLeavingConfirm = new Intent(getApplicationContext(), LeavingVisitConfirmWindow.class);
                 launchLeavingConfirm.putExtra("org.powellmakerspace.generalinfo.VISIT_ID", currentVisits.get(position).getVisitID());
                 startActivity(launchLeavingConfirm);
+                finish();
             }
         });
     }

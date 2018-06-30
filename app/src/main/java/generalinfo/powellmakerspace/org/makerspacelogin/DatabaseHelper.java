@@ -682,22 +682,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Get readable database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Define cursor for query
-        Cursor c = db.rawQuery(selectQuery, null);
+        // Define cursor for query - Try with Resourse Block
+        try(Cursor c = db.rawQuery(selectQuery, null)) {
 
-        // Loop through all rows and add to list
-        if(c.moveToFirst()){
-            do{
-                Tour tour = new Tour();
-                tour.setTour_id(c.getLong(c.getColumnIndex(KEY_TOUR_ID)));
-                tour.setTour_name(c.getString(c.getColumnIndex(KEY_TOUR_NAME)));
-                tour.setTour_visitor_number(c.getInt(c.getColumnIndex(KEY_TOUR_VISITOR_NUMBER)));
-                tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
-                tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
+            // Loop through all rows and add to list
+            if (c.moveToFirst()) {
+                do {
+                    Tour tour = new Tour();
+                    tour.setTour_id(c.getLong(c.getColumnIndex(KEY_TOUR_ID)));
+                    tour.setTour_name(c.getString(c.getColumnIndex(KEY_TOUR_NAME)));
+                    tour.setTour_visitor_number(c.getInt(c.getColumnIndex(KEY_TOUR_VISITOR_NUMBER)));
+                    tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
+                    tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
 
-                // Add to the visit list
-                tours.add(tour);
-            } while (c.moveToNext());
+                    // Add to the visit list
+                    tours.add(tour);
+                } while (c.moveToNext());
+            }
         }
         // Return list of visits
         return tours;

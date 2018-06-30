@@ -21,6 +21,7 @@ public class WelcomeWindow extends AppCompatActivity {
               public void onClick(View v) {
                   Intent launchArrivingWindow = new Intent(getApplicationContext(), ArrivingWindow.class);
                   startActivity(launchArrivingWindow);
+                  finish();
               }
           }
         );
@@ -30,8 +31,9 @@ public class WelcomeWindow extends AppCompatActivity {
         leavingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchLeavingWindow = new Intent(getApplicationContext(), LeavingWindow.class);
-                startActivity(launchLeavingWindow);
+                Intent launchLeavingTypeWindow = new Intent(getApplicationContext(), LeavingTypeWindow.class);
+                startActivity(launchLeavingTypeWindow);
+                finish();
             }
         });
     }

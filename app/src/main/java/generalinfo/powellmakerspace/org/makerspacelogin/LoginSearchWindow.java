@@ -39,6 +39,7 @@ public class LoginSearchWindow extends AppCompatActivity {
                 Intent launchMemberConfirmWindow = new Intent(getApplicationContext(), MemberConfirmWindow.class);
                 launchMemberConfirmWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", allMembersList.get(position).getMemberID());
                 startActivity(launchMemberConfirmWindow);
+                finish();
             }
         });
 

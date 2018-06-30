@@ -11,12 +11,12 @@ import java.util.List;
 
 public class MemberAdapter extends BaseAdapter {
 
-    LayoutInflater mInflator;
+    LayoutInflater mInflater;
     List<Member> allMemberList;
 
     public MemberAdapter(Context c, List<Member> allMemberList){
         this.allMemberList = allMemberList;
-        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MemberAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
-        View v = mInflator.inflate(R.layout.listview_member,null);
+        View v = mInflater.inflate(R.layout.listview_member,null);
 
         TextView memberNameTextView = (TextView) v.findViewById(R.id.memberNameListTextView);
         TextView membershipTextView = (TextView) v.findViewById(R.id.membershipListTextView);

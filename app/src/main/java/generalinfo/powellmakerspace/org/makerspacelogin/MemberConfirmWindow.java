@@ -59,6 +59,7 @@ public class MemberConfirmWindow extends AppCompatActivity {
                 Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
                 launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID",member_id);
                 startActivity(launchPurposeWindow);
+                finish();
             }
         });
 
@@ -70,6 +71,7 @@ public class MemberConfirmWindow extends AppCompatActivity {
                 // Launch Login Search Window
                 Intent launchLoginSearchWindow = new Intent(getApplicationContext(), LoginSearchWindow.class);
                 startActivity(launchLoginSearchWindow);
+                finish();
             }
         });
 
@@ -81,6 +83,7 @@ public class MemberConfirmWindow extends AppCompatActivity {
                 Intent launchUpdateWindow = new Intent(getApplicationContext(), UpdateWindow.class);
                 launchUpdateWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", member_id);
                 startActivity(launchUpdateWindow);
+                finish();
             }
         });
 

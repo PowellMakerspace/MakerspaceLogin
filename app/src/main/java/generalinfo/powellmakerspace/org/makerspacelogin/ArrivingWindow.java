@@ -20,6 +20,7 @@ public class ArrivingWindow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchLoginMethod = new Intent(getApplicationContext(), LoginMethodWindow.class);
                 startActivity(launchLoginMethod);
+                finish();
             }
         });
 
@@ -30,6 +31,7 @@ public class ArrivingWindow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchNewMember = new Intent(getApplicationContext(), NewMemberWindow.class);
                 startActivity(launchNewMember);
+                finish();
             }
         });
 
@@ -40,6 +42,7 @@ public class ArrivingWindow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchTourWindow = new Intent(getApplicationContext(), TourWindow.class);
                 startActivity(launchTourWindow);
+                finish();
             }
         });
     }

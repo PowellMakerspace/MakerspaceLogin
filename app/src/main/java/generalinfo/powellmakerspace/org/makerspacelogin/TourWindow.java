@@ -48,6 +48,7 @@ public class TourWindow extends AppCompatActivity {
                 // Return to Welcome Window
                 Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
                 startActivity(launchWelcomeWindow);
+                finish();
             }
         });
     }

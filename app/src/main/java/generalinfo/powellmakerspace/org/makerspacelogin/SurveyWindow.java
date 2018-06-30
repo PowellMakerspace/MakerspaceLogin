@@ -79,6 +79,7 @@ public class SurveyWindow extends AppCompatActivity {
 
                 // Continue to Purpose Window
                 startActivity(launchPurposeWindow);
+                finish();
             }
         });
     }

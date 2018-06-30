@@ -20,6 +20,7 @@ public class LoginMethodWindow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchQRCodeReader = new Intent(getApplicationContext(), QRCodeWindow.class);
                 startActivity(launchQRCodeReader);
+                finish();
             }
         });
 
@@ -30,6 +31,7 @@ public class LoginMethodWindow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchLoginSearch = new Intent(getApplicationContext(), LoginSearchWindow.class);
                 startActivity(launchLoginSearch);
+                finish();
             }
         });
     }

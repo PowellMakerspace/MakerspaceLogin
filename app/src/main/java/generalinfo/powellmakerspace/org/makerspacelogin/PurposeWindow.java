@@ -71,7 +71,7 @@ public class PurposeWindow extends AppCompatActivity {
                 // Return to the WelcomeWindow
                 Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
                 startActivity(launchWelcomeWindow);
-
+                finish();
 
             }
         });
