@@ -14,28 +14,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeWindow">
+        <activity android:name=".MainApplication.WelcomeWindow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginMethodWindow" />
-        <activity android:name=".QRCodeWindow" />
-        <activity android:name=".LoginSearchWindow" />
-        <activity android:name=".MemberConfirmWindow" />
-        <activity android:name=".ArrivingWindow" />
-        <activity android:name=".NewMemberWindow" />
-        <activity android:name=".SurveyWindow" />
-        <activity android:name=".PurposeWindow" />
-        <activity android:name=".UpdateWindow" />
-        <activity android:name=".LeavingVisitWindow" />
-        <activity android:name=".LeavingVisitConfirmWindow" />
-        <activity android:name=".TourWindow" />
-        <activity android:name=".LeavingTypeWindow" />
-        <activity android:name=".LeavingTourWindow" />
-        <activity android:name=".LeavingTourConfirmWindow"></activity>
+        <activity android:name=".LoginWindows.LoginMethodWindow" />
+        <activity android:name=".LoginWindows.QRCodeWindow" />
+        <activity android:name=".LoginWindows.LoginSearchWindow" />
+        <activity android:name=".LoginWindows.MemberConfirmWindow" />
+        <activity android:name=".LoginWindows.ArrivingWindow" />
+        <activity android:name=".LoginWindows.NewMemberWindow" />
+        <activity android:name=".LoginWindows.SurveyWindow" />
+        <activity android:name=".LoginWindows.PurposeWindow" />
+        <activity android:name=".LoginWindows.UpdateWindow" />
+        <activity android:name=".LogoutWindows.LeavingVisitWindow" />
+        <activity android:name=".LogoutWindows.LeavingVisitConfirmWindow" />
+        <activity android:name=".LoginWindows.TourWindow" />
+        <activity android:name=".LogoutWindows.LeavingTypeWindow" />
+        <activity android:name=".LogoutWindows.LeavingTourWindow" />
+        <activity android:name=".LogoutWindows.LeavingTourConfirmWindow"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.MainApplication;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Survey;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
 
 /**
  *  This class defines the creation of the database and interactions with it.

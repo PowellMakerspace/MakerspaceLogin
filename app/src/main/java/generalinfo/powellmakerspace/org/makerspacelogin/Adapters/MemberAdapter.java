@@ -1,4 +1,4 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class MemberAdapter extends BaseAdapter {
 

@@ -1,4 +1,4 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 
 public class TourWindow extends AppCompatActivity {
 

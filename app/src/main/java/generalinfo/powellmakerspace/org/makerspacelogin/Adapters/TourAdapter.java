@@ -1,16 +1,16 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.Adapters;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class TourAdapter extends BaseAdapter{
 

@@ -1,15 +1,18 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.LogoutWindows;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
+import generalinfo.powellmakerspace.org.makerspacelogin.Adapters.TourAdapter;
 
 public class LeavingTourWindow extends AppCompatActivity {
 

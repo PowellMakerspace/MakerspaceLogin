@@ -1,4 +1,4 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.Classes;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.LogoutWindows;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
+import generalinfo.powellmakerspace.org.makerspacelogin.Adapters.MemberAdapter;
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
 
 public class LeavingVisitWindow extends AppCompatActivity {
 

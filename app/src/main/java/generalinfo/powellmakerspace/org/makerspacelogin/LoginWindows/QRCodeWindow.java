@@ -1,7 +1,9 @@
-package generalinfo.powellmakerspace.org.makerspacelogin;
+package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class QRCodeWindow extends AppCompatActivity {
 
