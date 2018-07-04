@@ -6,9 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class ArrivingWindow extends AppCompatActivity {
+
+    Button returningMemberButton;
+    Button newMemberButton;
+    Button tourButton;
+    Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +24,7 @@ public class ArrivingWindow extends AppCompatActivity {
         setContentView(R.layout.activity_arriving_window);
 
         // Launch the login method activity
-        Button returningMemberButton = (Button) findViewById(R.id.returningMemberButton);
+        returningMemberButton = (Button) findViewById(R.id.returningMemberButton);
         returningMemberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +35,7 @@ public class ArrivingWindow extends AppCompatActivity {
         });
 
         // Launch the new member activity
-        Button newMemberButton = (Button) findViewById(R.id.newMemberButton);
+        newMemberButton = (Button) findViewById(R.id.newMemberButton);
         newMemberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,12 +46,23 @@ public class ArrivingWindow extends AppCompatActivity {
         });
 
         // Launch the tour activity
-        Button tourButton = (Button) findViewById(R.id.tourButton);
+        tourButton = (Button) findViewById(R.id.tourButton);
         tourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent launchTourWindow = new Intent(getApplicationContext(), TourWindow.class);
                 startActivity(launchTourWindow);
+                finish();
+            }
+        });
+
+        // Launch the welcome window activity
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                startActivity(launchWelcomeWindow);
                 finish();
             }
         });

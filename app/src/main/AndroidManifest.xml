@@ -35,7 +35,9 @@
         <activity android:name=".LoginWindows.TourWindow" />
         <activity android:name=".LogoutWindows.LeavingTypeWindow" />
         <activity android:name=".LogoutWindows.LeavingTourWindow" />
-        <activity android:name=".LogoutWindows.LeavingTourConfirmWindow"></activity>
+        <activity android:name=".LogoutWindows.LeavingTourConfirmWindow" />
+        <activity android:name=".AdminWindows.AdminLogin" />
+        <activity android:name=".AdminWindows.AdminMenu"></activity>
     </application>
 
 </manifest>
