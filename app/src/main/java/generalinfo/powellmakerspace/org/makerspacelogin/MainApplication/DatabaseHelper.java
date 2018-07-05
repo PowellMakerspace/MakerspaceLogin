@@ -398,6 +398,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         visit.setDepartureTime(c.getInt(c.getColumnIndex(KEY_DEPARTURE_TIME)));
         visit.setVisitPurpose(c.getString(c.getColumnIndex(KEY_VISIT_PURPOSE)));
 
+        // Cursor Close
+        c.close();
+
         // Return member object
         return visit;
     }
@@ -474,6 +477,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 visits.add(visit);
             } while (c.moveToNext());
         }
+
+        // Cursor Close
+        c.close();
+
         // Return list of visits
         return visits;
     }
@@ -513,6 +520,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 visits.add(visit);
             } while (c.moveToNext());
         }
+
+        // Close cursor
+        c.close();
+
+        // Return list of visits
+        return visits;
+    }
+
+    /**
+     * Return all visits with a given time frame
+     * @param startDateTime long unix timestamp for beginning of time frame
+     * @param endDateTime long unix timestamp for ending of time frame
+     * @return list of all visit objects within time frame
+     */
+    public List<Visit> getVisitsFromRange(long startDateTime, long endDateTime){
+
+        // Create visit list
+        List<Visit> visits = new ArrayList<>();
+
+        // Define query
+        String selectQuery = "SELECT * FROM " + TABLE_VISITS + " WHERE " + KEY_ARRIVAL_TIME + " > " + startDateTime
+                + " AND " + KEY_DEPARTURE_TIME + " < " + endDateTime;
+
+        // Add query to Database Log
+        Log.e(LOG, selectQuery);
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if(c.moveToFirst()){
+            do{
+                Visit visit = new Visit();
+                visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
+                visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+                visit.setArrivalTime(c.getLong(c.getColumnIndex(KEY_ARRIVAL_TIME)));
+                visit.setDepartureTime(c.getLong(c.getColumnIndex(KEY_DEPARTURE_TIME)));
+                visit.setVisitPurpose(c.getString(c.getColumnIndex(KEY_VISIT_PURPOSE)));
+
+                // Add to the visit list
+                visits.add(visit);
+            } while (c.moveToNext());
+        }
+
+        // Close cursor
+        c.close();
+
         // Return list of visits
         return visits;
     }
@@ -639,6 +696,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
         tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
 
+        // Cursor Close
+        c.close();
+
         // Return member object
         return tour;
     }
@@ -702,6 +762,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 } while (c.moveToNext());
             }
         }
+
+        // Return list of visits
+        return tours;
+    }
+
+    public List<Tour> getToursFromRange(long startDateTime, long endDateTime){
+
+        // Create visit list
+        List<Tour> tours = new ArrayList<>();
+
+        // Define query
+        String selectQuery = "SELECT * FROM " + TABLE_TOURS + " WHERE " + KEY_TOUR_ARRIVAL_TIME + " > " + startDateTime
+                + " AND " + KEY_TOUR_DEPARTURE_TIME + " < " + endDateTime;
+
+        // Add query to Database log
+        Log.e(LOG, selectQuery);
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define cursor for query - Try with Resourse Block
+        try(Cursor c = db.rawQuery(selectQuery, null)) {
+
+            // Loop through all rows and add to list
+            if (c.moveToFirst()) {
+                do {
+                    Tour tour = new Tour();
+                    tour.setTour_id(c.getLong(c.getColumnIndex(KEY_TOUR_ID)));
+                    tour.setTour_name(c.getString(c.getColumnIndex(KEY_TOUR_NAME)));
+                    tour.setTour_visitor_number(c.getInt(c.getColumnIndex(KEY_TOUR_VISITOR_NUMBER)));
+                    tour.setTour_arrival_time(c.getLong(c.getColumnIndex(KEY_TOUR_ARRIVAL_TIME)));
+                    tour.setTour_departure_time(c.getLong(c.getColumnIndex(KEY_TOUR_DEPARTURE_TIME)));
+
+                    // Add to the visit list
+                    tours.add(tour);
+                } while (c.moveToNext());
+            }
+        }
+
         // Return list of visits
         return tours;
     }

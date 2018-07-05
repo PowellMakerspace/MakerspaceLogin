@@ -9,8 +9,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Report;
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
@@ -31,6 +34,7 @@ public class AdminMenu extends AppCompatActivity {
         startDatePicker = (DatePicker) findViewById(R.id.startDatePicker);
         endDatePicker = (DatePicker) findViewById(R.id.endDatePicker);
 
+
         logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +49,12 @@ public class AdminMenu extends AppCompatActivity {
         fullReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Full report run", Toast.LENGTH_LONG).show();
+                long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
+                        startDatePicker.getDayOfMonth(),0,0,0);
+                long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
+                        endDatePicker.getDayOfMonth(),0,0,0);
+                Report report = new Report(getApplicationContext(), startDate, endDate);
+                Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -56,5 +65,18 @@ public class AdminMenu extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"View Recent Members",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public long convertToUnixTimeStamp(int year, int month, int day, int hour, int minute, int second){
+
+        Calendar myCalendar = Calendar.getInstance();
+        myCalendar.set(Calendar.YEAR, year);
+        myCalendar.set(Calendar.MONTH, month);
+        myCalendar.set(Calendar.DAY_OF_MONTH, day);
+        myCalendar.set(Calendar.HOUR, hour);
+        myCalendar.set(Calendar.MINUTE, minute);
+        myCalendar.set(Calendar.SECOND, second);
+
+        return (long) (myCalendar.getTimeInMillis()/1000);
     }
 }
