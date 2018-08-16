@@ -3,6 +3,7 @@ package generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,10 +27,14 @@ public class AdminMenu extends AppCompatActivity {
     DatePicker startDatePicker;
     DatePicker endDatePicker;
 
+    DatabaseHelper makerspaceDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
+
+        makerspaceDatabase = new DatabaseHelper(this);
 
         startDatePicker = (DatePicker) findViewById(R.id.startDatePicker);
         endDatePicker = (DatePicker) findViewById(R.id.endDatePicker);
@@ -52,8 +57,15 @@ public class AdminMenu extends AppCompatActivity {
                 long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
                         startDatePicker.getDayOfMonth(),0,0,0);
                 long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
-                        endDatePicker.getDayOfMonth(),0,0,0);
-                Report report = new Report(getApplicationContext(), startDate, endDate);
+                        endDatePicker.getDayOfMonth(),23,59,59);
+
+                Log.e("debugging", "test");
+                makerspaceDatabase.getMembershipTotals(startDate, endDate);
+                makerspaceDatabase.getPurposeTimes(startDate, endDate);
+                makerspaceDatabase.getTotalVisits(startDate, endDate);
+                makerspaceDatabase.getUniqueVisits(startDate, endDate);
+
+//                Report report = new Report(getApplicationContext(), startDate, endDate);
                 Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
             }
         });

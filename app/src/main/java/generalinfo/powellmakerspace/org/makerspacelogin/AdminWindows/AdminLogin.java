@@ -3,10 +3,14 @@ package generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
@@ -26,6 +30,13 @@ public class AdminLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            Workbook wb = new HSSFWorkbook();
+        } catch (Exception e){
+
+        }
+
         setContentView(R.layout.activity_admin_login);
 
         userNameTextEdit = (EditText) findViewById(R.id.userNameTextEdit);

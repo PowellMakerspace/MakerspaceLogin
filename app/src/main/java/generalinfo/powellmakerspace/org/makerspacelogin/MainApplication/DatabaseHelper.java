@@ -8,12 +8,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Survey;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
+
+import static java.lang.String.format;
 
 /**
  *  This class defines the creation of the database and interactions with it.
@@ -90,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Creates the tables when the database is first made
+     *
      * @param db Database
      */
     @Override
@@ -103,7 +109,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Drops old tables and adds new when upgrading
-     * @param db Database
+     *
+     * @param db         Database
      * @param oldVersion Previous version of the Database
      * @param newVersion New version of the Database
      */
@@ -120,7 +127,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     /**
      * __________________________________________________________________________________________
      * Methods for interacting with the Member Table of the Database
@@ -128,10 +134,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Create a member in the database
+     *
      * @param member Member object to be added to the database
      * @return Member ID number
      */
-    public long createMember(Member member){
+    public long createMember(Member member) {
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -149,10 +156,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Get member based on ID -> may be changed to search by name instead
+     *
      * @param member_id Id number for the member being searched
      * @return member object with all of the relevant member information
      */
-    public Member getMember(long member_id){
+    public Member getMember(long member_id) {
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -181,11 +189,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Get member based on name
+     *
      * @param member_name String for the name of the member being searched
      * @return member object with all of the relevant member information
      * There seems to be a problem with this code... unknown why
      */
-    public Member getMemberByName(String member_name){
+    public Member getMemberByName(String member_name) {
         // Get readable database
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -196,7 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.e(LOG, selectQuery);
 
         // Define cursor for query
-        Cursor c = db.rawQuery(selectQuery,null);
+        Cursor c = db.rawQuery(selectQuery, null);
 
         // As long as the cursor isn't null, move to the first
         if (c != null)
@@ -214,9 +223,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Gets all of the member information
+     *
      * @return List of member objects for each member in the database
      */
-    public List<Member> getAllMembers(){
+    public List<Member> getAllMembers() {
 
         // Define member list
         List<Member> members = new ArrayList<Member>();
@@ -234,8 +244,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
 
         // Loop through all rows and add them to list
-        if (c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Member member = new Member();
                 member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
                 member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
@@ -252,10 +262,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Gets all members of a certain membership type
+     *
      * @param membership_type membership type for search
      * @return List of member ojects for each member of given type
      */
-    public List<Member> getAllMembersByType(String membership_type){
+    public List<Member> getAllMembersByType(String membership_type) {
 
         // Define member list
         List<Member> members = new ArrayList<>();
@@ -273,8 +284,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
 
         // Loop through all rows and add them to list
-        if (c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Member member = new Member();
                 member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
                 member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
@@ -291,10 +302,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Updates the database for a given member
+     *
      * @param member Member object containing updated information
      * @return Integer indicating number of rows affected
      */
-    public int updateMember(Member member){
+    public int updateMember(Member member) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -315,21 +327,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Deletes member information from the database.  This optionally includes the visits for that member
-     * @param member Object for the member to be deleted
+     *
+     * @param member                   Object for the member to be deleted
      * @param should_delete_all_visits Boolean determining whether all member visits should be deleted as well
      */
-    public void deleteMember(Member member, boolean should_delete_all_visits){
+    public void deleteMember(Member member, boolean should_delete_all_visits) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Before deleting member check whether all visits should be deleted too
-        if (should_delete_all_visits){
+        if (should_delete_all_visits) {
             // Get all visits under this member
             List<Visit> allMemberVisits = getAllVisitsByMember(member.getMemberID());
 
             // Delete all Visits
-            for(Visit visit : allMemberVisits){
+            for (Visit visit : allMemberVisits) {
                 // Delete visit
                 deleteVisit(visit);
             }
@@ -337,9 +350,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Delete member from database
         db.delete(TABLE_MEMBERS, KEY_MEMBER_ID + " = ?",
-                new String[] { String.valueOf(member.getMemberID())});
+                new String[]{String.valueOf(member.getMemberID())});
     }
-
 
 
     /**
@@ -350,10 +362,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Creates visit record in the database
+     *
      * @param visit Object containing the information about the visit
      * @return visit ID number
      */
-    public long createVisit(Visit visit){
+    public long createVisit(Visit visit) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -372,7 +385,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return visit_id;
     }
 
-    public Visit getVisit(long visit_id){
+    public Visit getVisit(long visit_id) {
 
         // Get readable database
         SQLiteDatabase db = this.getReadableDatabase();
@@ -407,10 +420,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Updates visit record in the database
+     *
      * @param visit Object containing the information about the visit
      * @return number of rows affected
      */
-    public int updateVisit(Visit visit){
+    public int updateVisit(Visit visit) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -424,25 +438,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Update row
         return db.update(TABLE_VISITS, values, KEY_VISIT_ID + " = ?",
-                new String[] { String.valueOf(visit.getVisitID())});
+                new String[]{String.valueOf(visit.getVisitID())});
     }
 
     /**
      * Deletes an individual visit from the database
+     *
      * @param visit Object containing the visit to be deleted.
      */
-    public void deleteVisit(Visit visit){
+    public void deleteVisit(Visit visit) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Delete Visit
         db.delete(TABLE_VISITS, KEY_VISIT_ID + " = ?",
-                new String[] { String.valueOf(visit.getVisitID())});
+                new String[]{String.valueOf(visit.getVisitID())});
     }
 
     /**
      * Get all visit records based on a member ID that corresponds to it
+     *
      * @param memberID Member id to be searched
      * @return List of Visit Objects corresponding to that id
      */
@@ -464,8 +480,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
 
         // Loop through all rows and add to list
-        if (c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Visit visit = new Visit();
                 visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
                 visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
@@ -487,9 +503,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Method for retrieving active visits from the database
+     *
      * @return List of active visit records
      */
-    public List<Visit> getActiveVisits(){
+    public List<Visit> getActiveVisits() {
 
         // Create visit list
         List<Visit> visits = new ArrayList<>();
@@ -507,8 +524,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
 
         // Loop through all rows and add to list
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Visit visit = new Visit();
                 visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
                 visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
@@ -530,11 +547,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Return all visits with a given time frame
+     *
      * @param startDateTime long unix timestamp for beginning of time frame
-     * @param endDateTime long unix timestamp for ending of time frame
+     * @param endDateTime   long unix timestamp for ending of time frame
      * @return list of all visit objects within time frame
      */
-    public List<Visit> getVisitsFromRange(long startDateTime, long endDateTime){
+    public List<Visit> getVisitsFromRange(long startDateTime, long endDateTime) {
 
         // Create visit list
         List<Visit> visits = new ArrayList<>();
@@ -553,8 +571,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
 
         // Loop through all rows and add to list
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 Visit visit = new Visit();
                 visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
                 visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
@@ -582,10 +600,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Creates the record of the survey results
+     *
      * @param survey Object containing the survey results
      * @return Survey id number
      */
-    public long createSurvey(Survey survey){
+    public long createSurvey(Survey survey) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -604,10 +623,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Updates the record of the survey results
+     *
      * @param survey Object containing survey updated results
      * @return Number of rows affected
      */
-    public int updateSurvey(Survey survey){
+    public int updateSurvey(Survey survey) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -619,21 +639,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Update Row
         return db.update(TABLE_SURVEYS, values, KEY_SURVEY_ID + " = ?",
-                new String[] {String.valueOf(survey.getSurveyID())});
+                new String[]{String.valueOf(survey.getSurveyID())});
     }
 
     /**
      * Delete Survey Record
+     *
      * @param survey Object containing survey information
      */
-    public void deleteSurvey(Survey survey){
+    public void deleteSurvey(Survey survey) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Delete Survey
         db.delete(TABLE_SURVEYS, KEY_SURVEY_ID + " = ?",
-                new String[] {String.valueOf(survey.getSurveyID())});
+                new String[]{String.valueOf(survey.getSurveyID())});
     }
 
     /**
@@ -643,10 +664,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Create a new tour record in the database
+     *
      * @param tour object to be recorded in the database
      * @return the ID number of the tour record
      */
-    public long createTour(Tour tour){
+    public long createTour(Tour tour) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -667,10 +689,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Pulls the tour record from the database based on ID
+     *
      * @param tour_id ID number of the tour to query the database
      * @return tour object from the database
      */
-    public Tour getTour(long tour_id){
+    public Tour getTour(long tour_id) {
 
         // Get readable database
         SQLiteDatabase db = this.getReadableDatabase();
@@ -705,10 +728,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Updates a given tour record in the database
+     *
      * @param tour tour record to be updated
      * @return number of rows affected by the update
      */
-    public int updateTour(Tour tour){
+    public int updateTour(Tour tour) {
 
         // Get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -723,14 +747,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Update Row
         return db.update(TABLE_TOURS, values, KEY_TOUR_ID + " = ?",
-                new String[] {String.valueOf(tour.getTour_id())});
+                new String[]{String.valueOf(tour.getTour_id())});
     }
 
     /**
      * Gets a list of all active tours in the database
+     *
      * @return List of all active tour objects
      */
-    public List<Tour> getActiveTours(){
+    public List<Tour> getActiveTours() {
 
         // Create visit list
         List<Tour> tours = new ArrayList<>();
@@ -745,7 +770,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Define cursor for query - Try with Resourse Block
-        try(Cursor c = db.rawQuery(selectQuery, null)) {
+        try (Cursor c = db.rawQuery(selectQuery, null)) {
 
             // Loop through all rows and add to list
             if (c.moveToFirst()) {
@@ -767,7 +792,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tours;
     }
 
-    public List<Tour> getToursFromRange(long startDateTime, long endDateTime){
+    public List<Tour> getToursFromRange(long startDateTime, long endDateTime) {
 
         // Create visit list
         List<Tour> tours = new ArrayList<>();
@@ -783,7 +808,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Define cursor for query - Try with Resourse Block
-        try(Cursor c = db.rawQuery(selectQuery, null)) {
+        try (Cursor c = db.rawQuery(selectQuery, null)) {
 
             // Loop through all rows and add to list
             if (c.moveToFirst()) {
@@ -804,5 +829,122 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Return list of visits
         return tours;
     }
-}
 
+    /**
+     * Methods to run data analysis report
+     * ____________________________________________________________________________________________
+     */
+
+
+    /**
+     * Method to query the database to return totals for all membership types
+     * @param startDate - starting bound for the search time frame
+     * @param endDate - ending bound for the search time frame
+     * @return Map containing membership type, total pairs
+     */
+    public Map<String, Integer> getMembershipTotals(long startDate, long endDate){
+
+        String selectQuery = "SELECT " +
+                                 "Members.membership_type, " +
+                                 "Count(*) " +
+                             "FROM Visits " +
+                             "LEFT JOIN Members ON " +
+                                 "Members.member_id = Visits.member_id " +
+                             "WHERE " +
+                                 "Visits.arrival_time > " + startDate + " and " +
+                                 "Visits.arrival_time < " + endDate + " " +
+                             "GROUP BY Members.membership_type";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, Integer> membershipTotals = new HashMap();
+
+        try (Cursor c = db.rawQuery(selectQuery,null)) {
+            while (c.moveToNext()){
+                Log.e("Debuging", format("Member Type %s;  Visit Count %d", c.getString(0), c.getInt(1)));
+
+                membershipTotals.put(c.getString(0),c.getInt(1));
+            }
+        }
+
+        return membershipTotals;
+    }
+
+    /**
+     * Method to query the database to return toal times for all purposes
+     * @param startDate - starting bound for the search time frame
+     * @param endDate - ending bound for the search time frame
+     * @return Map containing membership type, total pairs
+     */
+    public Map<String, Integer> getPurposeTimes(long startDate, long endDate){
+
+        String selectQuery = "SELECT " +
+                                 "Visits.visit_purpose, " +
+                             "sum(Visits.departure_time - Visits.arrival_time) as time " +
+                             "FROM Visits " +
+                             "WHERE " +
+                                  "Visits.arrival_time > " + startDate + " and " +
+                                  "Visits.arrival_time < " + endDate + " " +
+                             "GROUP BY " +
+                                  "Visits.visit_purpose";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, Integer> PurposeTimes = new HashMap<>();
+
+        try (Cursor c = db.rawQuery(selectQuery,null)){
+            while(c.moveToNext()){
+                Log.e("Debuging", format("Purpose: %s; Total Time: %d",c.getString(0), c.getInt(1)));
+
+                PurposeTimes.put(c.getString(0),c.getInt(1));
+            }
+        }
+
+       return PurposeTimes;
+    }
+
+    /**
+     * Method to return the total number of visits within a given time frame
+     * @param startDate - starting bound for the search time frame
+     * @param endDate - ending bound for the search time frame
+     * @return int containing the number of visits
+     */
+    public int getTotalVisits(long startDate, long endDate) {
+
+        String selectQuery = "SELECT " +
+                                 "Count(*)" +
+                             "FROM Visits " +
+                             "WHERE " +
+                                "Visits.arrival_time > " + startDate + " and " +
+                                "Visits.arrival_time < " + endDate;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        int totalVisits;
+
+        try(Cursor c = db.rawQuery(selectQuery,null)){
+            c.moveToNext();
+            totalVisits = c.getInt(0);
+            Log.e("Total Visits: ",Integer.toString(c.getInt(0)));
+        }
+
+        return totalVisits;
+    }
+
+    public int getUniqueVisits(long startDate, long endDate) {
+
+        String selectQuery = "SELECT DISTINCT Visits.member_id " +
+                "FROM Visits " +
+                "WHERE " +
+                "Visits.arrival_time > " + startDate + " and " +
+                "Visits.arrival_time < " + endDate;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try(Cursor c = db.rawQuery(selectQuery,null)){
+            while(c.moveToNext()){
+                Log.e("Debugging",c.getString(0));
+            }
+        }
+
+        return 0;
+    }
+
+}
