@@ -947,4 +947,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return 0;
     }
 
+    /**
+     * _____________________________________________________________________________________________
+     * Function used for fetching data for exporting database
+     */
+
+    public Cursor raw(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_VISITS , new String[]{});
+
+        return res;
+    }
 }
