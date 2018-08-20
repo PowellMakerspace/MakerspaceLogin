@@ -35,20 +35,31 @@ public class CSVWriter {
 
     public void writeNext(String[] nextLine){
 
+        // If null, then do nothing
         if (nextLine == null)
             return;
+
         StringBuffer sb = new StringBuffer();
+
+        // For each element in the array
         for (int i = 0; i < nextLine.length; i++){
 
+            // If the selected element is not the first element,
+            // append a line separator
             if (i != 0){
                 sb.append(separator);
             }
 
+            // I next element is null, put in a space
             String nextElement = nextLine[i];
             if (nextElement == null)
                 continue;
+
+            // Add quote char
             if (quotechar != NO_QUOTE_CHARACTER)
                 sb.append(quotechar);
+
+
             for (int j = 0; j < nextElement.length(); j++){
                 char nextChar = nextElement.charAt(j);
                 if (escapechar != NO_ESCAPE_CHARACTER && nextChar == quotechar){

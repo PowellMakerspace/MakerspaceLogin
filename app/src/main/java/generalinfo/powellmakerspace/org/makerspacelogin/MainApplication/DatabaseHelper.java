@@ -952,11 +952,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Function used for fetching data for exporting database
      */
 
-    public Cursor raw(){
+    public Cursor raw(String table){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + table , new String[]{});
+        return res;
+    }
+
+    public List<String> getTableNames(){
+
+        List<String> tableList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_VISITS , new String[]{});
+        Cursor res = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table';", new String[]{});
+        while (res.moveToNext()){
+            tableList.add(res.getString(0));
+        }
+        res.close();
 
-        return res;
+        return tableList;
     }
 }

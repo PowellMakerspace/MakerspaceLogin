@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
     implementation 'org.apache.poi:poi:3.17'
+    implementation 'org.apache.commons:commons-csv:1.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,18 +19,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Report;
 import generalinfo.powellmakerspace.org.makerspacelogin.ExportDatabaseTests.CSVWriter;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.DatabaseBackupUtility;
 
 public class AdminMenu extends AppCompatActivity {
 
@@ -93,16 +102,10 @@ public class AdminMenu extends AppCompatActivity {
 
         backupButton = (Button) findViewById(R.id.backupButton);
         backupButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-                    new ExportDatabaseCSVTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
-                else {
-                    new ExportDatabaseCSVTask().execute();
-                }
-                ShareFile();
+                new ExportDatabaseCSVTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         });
     }
@@ -120,45 +123,41 @@ public class AdminMenu extends AppCompatActivity {
         return (long) (myCalendar.getTimeInMillis()/1000);
     }
 
+
+    private void shareFile(File file){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("application/zip");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        startActivity(Intent.createChooser(shareIntent,"Share CSV"));
+    }
+
     public class ExportDatabaseCSVTask extends AsyncTask<String, Void, Boolean> {
 
         private final ProgressDialog dialog = new ProgressDialog(AdminMenu.this);
-        DatabaseHelper makerspaceDatabase;
+        private File databaseBackupFile;
 
         @Override
         protected void onPreExecute() {
             this.dialog.setMessage("Exporting database...");
             this.dialog.show();
-            makerspaceDatabase = new DatabaseHelper(AdminMenu.this);
         }
 
         protected Boolean doInBackground(final String... args) {
+            File exportDirectory = new File(
+                    Environment.getExternalStorageDirectory(), "makerspaceDataExport");
 
-            File exportDir = new File(Environment.getExternalStorageDirectory(), "/codesss/");
-            if (!exportDir.exists()) {
-                exportDir.mkdir();
-            }
+            // Run Db Backup utility
+            DatabaseHelper makerspaceDatabase = new DatabaseHelper(AdminMenu.this);
+            DatabaseBackupUtility dbBackupUtil = new DatabaseBackupUtility(makerspaceDatabase, exportDirectory);
+            dbBackupUtil.performBackup();
 
-            File file = new File(exportDir, "makerspaceDataExport.csv");
-            try {
-                file.createNewFile();
-                CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-                Cursor curCSV = makerspaceDatabase.raw();
-                csvWrite.writeNext(curCSV.getColumnNames());
-                while (curCSV.moveToNext()) {
-                    String arrStr[] = null;
-                    String[] mySecondStringArray = new String[curCSV.getColumnNames().length];
-                    for (int i = 0; i < curCSV.getColumnNames().length; i++) {
-                        mySecondStringArray[i] = curCSV.getString(i);
-                    }
-                    csvWrite.writeNext(mySecondStringArray);
-                }
-                csvWrite.close();
-                curCSV.close();
-                return true;
-            } catch (IOException e) {
-                return false;
-            }
+            // Get backup file
+            databaseBackupFile = dbBackupUtil.getBackupFile();
+            return databaseBackupFile != null;
         }
 
         protected void onPostExecute(final Boolean success) {
@@ -166,22 +165,10 @@ public class AdminMenu extends AppCompatActivity {
                 this.dialog.dismiss();
             }
             if (success) {
-                Toast.makeText(AdminMenu.this, "Export successful!", Toast.LENGTH_SHORT).show();
-//            ShareGif();
+                shareFile(databaseBackupFile);
             } else {
                 Toast.makeText(AdminMenu.this, "Export failed", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void ShareFile(){
-        File exportDir = new File(Environment.getExternalStorageDirectory(),"/codesss/");
-        String fileName = "makerspaceDataExport.csv";
-        File sharingGifFile = new File(exportDir, fileName);
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("application/csv");
-        Uri uri = Uri.fromFile(sharingGifFile);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(shareIntent,"Share CSV"));
     }
 }
