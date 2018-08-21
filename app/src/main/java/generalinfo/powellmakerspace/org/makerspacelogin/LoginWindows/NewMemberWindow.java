@@ -3,6 +3,7 @@ package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -103,7 +104,7 @@ public class NewMemberWindow extends AppCompatActivity {
                         Important part where the files is created and saved
                          */
                         emailIntent.setType("image/"); // accept any image
-                        File qrFile = new File(getCacheDir(),"qrCodeFile.png");
+                        File qrFile = new File(Environment.getExternalStorageDirectory(),"qrCodeFile.png");
 
                         try{
                             boolean fileCreated = qrFile.createNewFile();
@@ -121,29 +122,8 @@ public class NewMemberWindow extends AppCompatActivity {
                         emailIntent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(qrFile));
                         startActivity(Intent.createChooser(emailIntent,"Send your email in:"));
 
-//                        //-Create a file to write bitmap data
-//                        File qrFile = new File(getCacheDir(),"qrCodeFile.png");
-//                        qrFile.createNewFile();
-//
-//                        //-Convert bitmap to byte array
-//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-//                        byte[] bitmapdata = bos.toByteArray();
-//
-//                        //-Write the bytes in file
-//                        FileOutputStream fos = new FileOutputStream(qrFile);
-//                        fos.write(bitmapdata);
-//                        fos.flush();
-//                        fos.close();
-//
-//                        shareFile(qrFile);
-//
                     } catch (WriterException e) {
                         e.printStackTrace();
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
                     }
                 }
             }
