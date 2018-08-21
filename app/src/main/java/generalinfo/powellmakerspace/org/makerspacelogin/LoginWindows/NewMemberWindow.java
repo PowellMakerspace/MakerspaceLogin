@@ -2,8 +2,11 @@ package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,12 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
@@ -82,8 +91,59 @@ public class NewMemberWindow extends AppCompatActivity {
                         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                         Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                         QRDisplayImageView.setImageBitmap(bitmap);
+
+                        // Attempt at converting bitmap to file for emailing
+
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL,"r.anthony1961@hotmail.com");
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Powell Makerspace QR Code");
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT," ");
+
+                        /*
+                        Important part where the files is created and saved
+                         */
+                        emailIntent.setType("image/"); // accept any image
+                        File qrFile = new File(getCacheDir(),"qrCodeFile.png");
+
+                        try{
+                            boolean fileCreated = qrFile.createNewFile();
+                            if (fileCreated){
+                                // write bitmap to that file
+                                FileOutputStream outputStream = new FileOutputStream(qrFile);
+                                bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+                                outputStream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("SAVE FAILED","Could not save file");
+                        }
+
+                        emailIntent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(qrFile));
+                        startActivity(Intent.createChooser(emailIntent,"Send your email in:"));
+
+//                        //-Create a file to write bitmap data
+//                        File qrFile = new File(getCacheDir(),"qrCodeFile.png");
+//                        qrFile.createNewFile();
+//
+//                        //-Convert bitmap to byte array
+//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+//                        byte[] bitmapdata = bos.toByteArray();
+//
+//                        //-Write the bytes in file
+//                        FileOutputStream fos = new FileOutputStream(qrFile);
+//                        fos.write(bitmapdata);
+//                        fos.flush();
+//                        fos.close();
+//
+//                        shareFile(qrFile);
+//
                     } catch (WriterException e) {
                         e.printStackTrace();
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
                     }
                 }
             }
@@ -103,6 +163,16 @@ public class NewMemberWindow extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    private void shareFile(File file){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("application/zip");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        startActivity(Intent.createChooser(shareIntent,"Share QR"));
     }
 
 }
