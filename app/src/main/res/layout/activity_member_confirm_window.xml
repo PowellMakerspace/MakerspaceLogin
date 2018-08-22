@@ -33,8 +33,8 @@
         android:id="@+id/nameConfirmViewText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="152dp"
         android:text="Name"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/nameConfirmTextLabel"
@@ -62,12 +62,36 @@
         app:layout_constraintStart_toEndOf="@+id/membershipConfirmLabel"
         app:layout_constraintTop_toBottomOf="@+id/nameConfirmViewText" />
 
+    <TextView
+        android:id="@+id/punchesRemainingTextLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView:"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/membershipConfirmLabel" />
+
+    <TextView
+        android:id="@+id/punchesRemainingViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="40dp"
+        android:text="Punches"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/punchesRemainingTextLabel"
+        app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+
     <Button
         android:id="@+id/yesConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="220dp"
         android:text="Yes"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,8 +101,8 @@
         android:id="@+id/noConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="220dp"
         android:text="No"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/yesConfirmButton"
@@ -88,10 +112,11 @@
         android:id="@+id/updateConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="220dp"
         android:text="Needs Updating"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/noConfirmButton"
         app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+
 </android.support.constraint.ConstraintLayout>

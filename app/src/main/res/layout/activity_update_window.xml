@@ -110,6 +110,13 @@
             android:text="NWC Student" />
 
         <RadioButton
+            android:id="@+id/punchPassRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Punch Pass" />
+
+        <RadioButton
             android:id="@+id/nonMemberRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

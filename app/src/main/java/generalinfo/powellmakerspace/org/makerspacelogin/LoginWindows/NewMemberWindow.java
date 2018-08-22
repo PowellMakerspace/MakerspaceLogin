@@ -76,11 +76,21 @@ public class NewMemberWindow extends AppCompatActivity {
                 membershipRadioButton = (RadioButton) findViewById(selectedId);
                 membershipType = membershipRadioButton.getText().toString();
 
+                Member newMember;
+
                 // Create new Member Object
-                Member newMember = new Member(memberName, membershipType);
+                if (membershipType.equals("Punch Pass")){
+                    newMember = new Member(memberName, membershipType, 5);
+                }
+                else {
+                    newMember = new Member(memberName, membershipType, -1);
+                }
 
                 // Add new member to the database
-                memberId = makerspaceDatabase.createMember(newMember);
+                makerspaceDatabase.createMember(newMember);
+
+                memberId = makerspaceDatabase.getMemberByName(memberName).getMemberID();
+                Log.e("MEMBER ID ",Long.toString(memberId));
 
                 // Create and display QR Code
 
@@ -93,34 +103,7 @@ public class NewMemberWindow extends AppCompatActivity {
                         Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                         QRDisplayImageView.setImageBitmap(bitmap);
 
-                        // Attempt at converting bitmap to file for emailing
-
-                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL,"r.anthony1961@hotmail.com");
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Powell Makerspace QR Code");
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT," ");
-
-                        /*
-                        Important part where the files is created and saved
-                         */
-                        emailIntent.setType("image/"); // accept any image
-                        File qrFile = new File(Environment.getExternalStorageDirectory(),"qrCodeFile.png");
-
-                        try{
-                            boolean fileCreated = qrFile.createNewFile();
-                            if (fileCreated){
-                                // write bitmap to that file
-                                FileOutputStream outputStream = new FileOutputStream(qrFile);
-                                bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
-                                outputStream.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.d("SAVE FAILED","Could not save file");
-                        }
-
-                        emailIntent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(qrFile));
-                        startActivity(Intent.createChooser(emailIntent,"Send your email in:"));
+                        sendQRCode(memberName + " QRCode.png", bitmap);
 
                     } catch (WriterException e) {
                         e.printStackTrace();
@@ -144,15 +127,35 @@ public class NewMemberWindow extends AppCompatActivity {
             }
         });
     }
-    private void shareFile(File file){
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("application/zip");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+    private void sendQRCode(String fileName, Bitmap bitmap){
+        // Attempt at converting bitmap to file for emailing
 
-        startActivity(Intent.createChooser(shareIntent,"Share QR"));
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        /*
+        Important part where the files is created and saved
+        */
+
+        emailIntent.setType("image/"); // accept any image
+
+        File qrFile = new File(Environment.getExternalStorageDirectory(),fileName);
+
+        try{
+            boolean fileCreated = qrFile.createNewFile();
+            if (fileCreated){
+                // write bitmap to that file
+                FileOutputStream outputStream = new FileOutputStream(qrFile);
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+                outputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("SAVE FAILED","Could not save file");
+        }
+
+        emailIntent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(qrFile));
+        startActivity(Intent.createChooser(emailIntent,"Send your email in:"));
     }
 
 }

@@ -54,7 +54,8 @@ public class SurveyWindow extends AppCompatActivity {
                     learnedAboutMessage = learnedAboutMessage + "Walk up";
 
                 // Create new Survey Object
-                Survey newSurvey = new Survey(learnedAboutMessage);
+                Survey newSurvey = new Survey();
+                newSurvey.setLearnedAbout(learnedAboutMessage);
 
                 // Add Survey to the database
                 makerspaceDatabase.createSurvey(newSurvey);

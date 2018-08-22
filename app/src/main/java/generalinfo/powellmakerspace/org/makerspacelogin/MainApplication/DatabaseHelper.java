@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_MEMBER_ID = "member_id";
     public static final String KEY_MEMBER_NAME = "member_name";
     public static final String KEY_MEMBERSHIP_TYPE = "membership_type";
+    public static final String KEY_PUNCH_PASSES = "punch_passes";
 
     // Column Names -- Visits
     public static final String KEY_VISIT_ID = "visit_id";
@@ -67,7 +68,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     // Members table create statement
     private static final String CREATE_TABLE_MEMBERS = "CREATE TABLE " + TABLE_MEMBERS + "(" + KEY_MEMBER_ID +
-            " INTEGER PRIMARY KEY," + KEY_MEMBER_NAME + " TEXT," + KEY_MEMBERSHIP_TYPE + " TEXT" + ")";
+            " INTEGER PRIMARY KEY," + KEY_MEMBER_NAME + " TEXT," + KEY_MEMBERSHIP_TYPE + " TEXT," +
+            KEY_PUNCH_PASSES + " INTEGER" +  ")" ;
 
     // Visit table create statement
     public static final String CREATE_TABLE_VISITS = "CREATE TABLE " + TABLE_VISITS + "(" + KEY_VISIT_ID +
@@ -146,6 +148,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MEMBER_NAME, member.getMemberName());
         values.put(KEY_MEMBERSHIP_TYPE, member.getMembershipType());
+        values.put(KEY_PUNCH_PASSES, member.getPunchPasses());
+
 
         //insert row
         //--> this appears to be defining the member id based on the row number - might want to change that.
@@ -182,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
         member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
         member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+        member.setPunchPasses(c.getInt(c.getColumnIndex(KEY_PUNCH_PASSES)));
 
         // Return member object
         return member;
@@ -199,7 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Define query string
-        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + member_name;
+        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " = " + "'" + member_name + "'";
 
         // Add query to database log
         Log.e(LOG, selectQuery);
@@ -216,6 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
         member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
         member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+        member.setPunchPasses(c.getInt(c.getColumnIndex(KEY_PUNCH_PASSES)));
 
         // Return member object
         return member;
@@ -250,6 +256,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
                 member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
                 member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+                member.setPunchPasses(c.getInt(c.getColumnIndex(KEY_PUNCH_PASSES)));
 
                 // Add to member list
                 members.add(member);
@@ -290,6 +297,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
                 member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
                 member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+                member.setPunchPasses(c.getInt(c.getColumnIndex(KEY_PUNCH_PASSES)));
 
                 // Add to member list
                 members.add(member);
@@ -316,6 +324,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_MEMBER_ID, member.getMemberID());
         values.put(KEY_MEMBER_NAME, member.getMemberName());
         values.put(KEY_MEMBERSHIP_TYPE, member.getMembershipType());
+        values.put(KEY_PUNCH_PASSES, member.getPunchPasses());
 
         // Define where arguments
         String[] whereArgument = {String.valueOf(member.getMemberID())};
@@ -611,7 +620,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Collect Content
         ContentValues values = new ContentValues();
-        values.put(KEY_SURVEY_ID, survey.getSurveyID());
         values.put(KEY_LEARNED_ABOUT, survey.getLearnedAbout());
 
         // Insert Row

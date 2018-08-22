@@ -3,6 +3,7 @@ package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ public class MemberConfirmWindow extends AppCompatActivity {
     DatabaseHelper makerspaceDatabase;
     TextView nameConfirmViewText;
     TextView membershipViewText;
+    TextView punchesRemainingTextLabel;
+    TextView punchesRemainingViewText;
     Member member;
     Button yesConfirmButton;
     Button noConfirmButton;
@@ -31,6 +34,8 @@ public class MemberConfirmWindow extends AppCompatActivity {
         //Set up objects in activity
         nameConfirmViewText = (TextView) findViewById(R.id.nameConfirmViewText);
         membershipViewText = (TextView) findViewById(R.id.membershipViewText);
+        punchesRemainingViewText = (TextView) findViewById(R.id.punchesRemainingViewText);
+        punchesRemainingTextLabel = (TextView) findViewById(R.id.punchesRemainingTextLabel);
         yesConfirmButton = (Button) findViewById(R.id.yesConfirmButton);
         noConfirmButton = (Button) findViewById(R.id.noConfirmButton);
         updateConfirmButton = (Button) findViewById(R.id.updateConfirmButton);
@@ -44,9 +49,22 @@ public class MemberConfirmWindow extends AppCompatActivity {
 
         // Set the info if there is a member id greater than -1
         if (member_id > -1){
+            Log.e("MEMBER ID: ",Long.toString(member_id));
             member = makerspaceDatabase.getMember(member_id);
             nameConfirmViewText.setText(member.getMemberName());
             membershipViewText.setText(member.getMembershipType());
+
+            if(member.getPunchPasses() > -1){
+                punchesRemainingTextLabel.setVisibility(View.VISIBLE);
+                punchesRemainingViewText.setVisibility(View.VISIBLE);
+
+                if(member.getPunchPasses() == 0){
+                    punchesRemainingViewText.setText("Out of Punches, talk to staff.");
+                    yesConfirmButton.setEnabled(false);
+                }
+                else punchesRemainingViewText.setText(Integer.toString(member.getPunchPasses()));
+
+            }
         }
         // Catch if an error occurred
         else{
@@ -58,6 +76,13 @@ public class MemberConfirmWindow extends AppCompatActivity {
         yesConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (member.getPunchPasses() > -1){
+                    int tempPunchNumber = member.getPunchPasses();
+                    member.setPunchPasses(tempPunchNumber - 1);
+                    makerspaceDatabase.updateMember(member);
+                    Toast.makeText(getApplicationContext(),"One punch has been used.",Toast.LENGTH_LONG).show();
+                }
 
                 // Launch Purpose Window
                 Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
