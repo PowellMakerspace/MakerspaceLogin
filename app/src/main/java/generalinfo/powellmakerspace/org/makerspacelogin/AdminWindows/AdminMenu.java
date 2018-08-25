@@ -45,6 +45,7 @@ public class AdminMenu extends AppCompatActivity {
     Button fullReportButton;
     Button recentsButton;
     Button backupButton;
+    Button addPunchesButton;
 
     DatePicker startDatePicker;
     DatePicker endDatePicker;
@@ -102,10 +103,20 @@ public class AdminMenu extends AppCompatActivity {
 
         backupButton = (Button) findViewById(R.id.backupButton);
         backupButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 new ExportDatabaseCSVTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        });
+
+        addPunchesButton = (Button) findViewById(R.id.addPunchesButtons);
+        addPunchesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent addPunchIntent = new Intent(getApplicationContext(), AdminAddPunch.class);
+                 startActivity(addPunchIntent);
+                 finish();
+
             }
         });
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminWindows.AdminAddPunch">
+
+    <TextView
+        android:id="@+id/addPunchTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="48dp"
+        android:text="Search for Member and Add Punches"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/memberNameEntryEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPunchTextView" />
+
+    <EditText
+        android:id="@+id/numberPunchesEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Number of Passes"
+        android:inputType="number"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/memberNameEntryEditText"
+        app:layout_constraintTop_toBottomOf="@+id/addPunchTextView" />
+
+    <Button
+        android:id="@+id/addPunchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="68dp"
+        android:text="Add Punches"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memberNameEntryEditText" />
+
+    <Button
+        android:id="@+id/cancelPunchesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="68dp"
+        android:text="Cancel"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/addPunchButton"
+        app:layout_constraintTop_toBottomOf="@+id/numberPunchesEditText" />
+</android.support.constraint.ConstraintLayout>
