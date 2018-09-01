@@ -43,7 +43,10 @@ public class AdminAddPunch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                try{
+                if (memberNameEntryEditText.getText().equals("") || numberPunchesEditText.getText().equals("")){
+                    Toast.makeText(getApplicationContext(),"Punch Adding Failed",Toast.LENGTH_LONG).show();
+
+                } else {
                     memberName = memberNameEntryEditText.getText().toString();
                     punchesToAdd = Integer.valueOf(numberPunchesEditText.getText().toString());
                     member = makerspaceDatabase.getMemberByName(memberName);
@@ -54,9 +57,6 @@ public class AdminAddPunch extends AppCompatActivity {
                     Intent adminMenuIntent = new Intent(getApplicationContext(), AdminMenu.class);
                     startActivity(adminMenuIntent);
                     finish();
-
-                } catch (NullPointerException e){
-                    Toast.makeText(getApplicationContext(),"Punch Adding Failed",Toast.LENGTH_LONG).show();
                 }
 
             }

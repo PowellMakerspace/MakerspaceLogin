@@ -27,46 +27,47 @@
         app:layout_constraintTop_toBottomOf="@+id/PurposeViewText">
 
         <RadioButton
-            android:id="@+id/radioButton1"
+            android:id="@+id/classRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Class" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/teachRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Teach" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="VISTA" />
-
-        <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/workOnProjectRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Work on Project" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/workRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Business Work" />
+
+        <RadioButton
+            android:id="@+id/meetingRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Meeting" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/vistaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rental Space" />
+            android:text="VISTA" />
+
     </RadioGroup>
 
     <Button

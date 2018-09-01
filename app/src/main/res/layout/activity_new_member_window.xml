@@ -57,14 +57,6 @@
             tools:layout_editor_absoluteY="249dp" />
 
         <RadioButton
-            android:id="@+id/volunteerRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Volunteer"
-            tools:layout_editor_absoluteX="68dp"
-            tools:layout_editor_absoluteY="185dp" />
-
-        <RadioButton
             android:id="@+id/coworkRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,6 +94,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Punch Pass" />
+
+        <RadioButton
+            android:id="@+id/volunteerRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volunteer"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="185dp" />
 
         <RadioButton
             android:id="@+id/nonMemberRadioButton"
