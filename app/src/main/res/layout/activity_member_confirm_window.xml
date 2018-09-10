@@ -88,35 +88,35 @@
 
     <Button
         android:id="@+id/yesConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="132dp"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="220dp"
         android:text="Yes"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/membershipConfirmLabel" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/noConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="132dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="220dp"
         android:text="No"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/yesConfirmButton"
-        app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yesConfirmButton" />
 
     <Button
         android:id="@+id/updateConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="220dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="132dp"
+        android:layout_marginStart="56dp"
         android:text="Needs Updating"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/noConfirmButton"
-        app:layout_constraintTop_toBottomOf="@+id/membershipViewText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/noConfirmButton" />
 
 </android.support.constraint.ConstraintLayout>

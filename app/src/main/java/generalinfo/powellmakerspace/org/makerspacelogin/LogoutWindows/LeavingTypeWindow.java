@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.Button;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class LeavingTypeWindow extends AppCompatActivity {
 
     Button leavingVisitButton;
     Button leavingTourButton;
+    Button cancelLeavingTypeButton;
+
     DatabaseHelper makerspaceDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,7 @@ public class LeavingTypeWindow extends AppCompatActivity {
         // Initiate Leaving Visit and Tour Buttons
         leavingVisitButton = (Button) findViewById(R.id.leavingVisitButton);
         leavingTourButton = (Button) findViewById(R.id.leavingTourButton);
+        cancelLeavingTypeButton = (Button) findViewById(R.id.cancelLeavingTypeButton);
 
         // Initiate Database
         makerspaceDatabase = new DatabaseHelper(this);
@@ -54,6 +59,15 @@ public class LeavingTypeWindow extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent launchLeavingTourWindow = new Intent(getApplicationContext(), LeavingTourWindow.class);
                     startActivity(launchLeavingTourWindow);
+                    finish();
+                }
+            });
+
+            cancelLeavingTypeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                    startActivity(launchWelcomeWindow);
                     finish();
                 }
             });

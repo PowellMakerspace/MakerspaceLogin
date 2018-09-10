@@ -59,6 +59,7 @@ public class NewMemberWindow extends AppCompatActivity {
         membershipRadioGroup = (RadioGroup) findViewById(R.id.membershipRadioGroup);
 
         nextButton = (Button) findViewById(R.id.nextButton);
+        nextButton.setEnabled(false);
         createMemberButton = (Button) findViewById(R.id.createMemberButton);
 
         QRDisplayImageView = (ImageView) findViewById(R.id.QRDisplayImageView);
@@ -109,6 +110,8 @@ public class NewMemberWindow extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                nextButton.setEnabled(true);
+                createMemberButton.setEnabled(false);
             }
         });
 

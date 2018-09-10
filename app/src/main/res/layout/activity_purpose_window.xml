@@ -13,13 +13,13 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="44dp"
         android:text="What is the purpose of your visit?"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/purposeRadioGroup"
-        android:layout_width="142dp"
+        android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
         android:layout_marginTop="60dp"
@@ -31,52 +31,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Class" />
+            android:text="Class"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/teachRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Teach" />
+            android:text="Teach"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/workOnProjectRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Work on Project" />
+            android:text="Work on Project"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/workRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Business Work" />
+            android:text="Business Work"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/meetingRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Meeting" />
+            android:text="Meeting"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/vistaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="VISTA" />
+            android:text="VISTA"
+            android:textSize="30sp" />
 
     </RadioGroup>
 
     <Button
         android:id="@+id/visitArrivingDoneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_marginStart="144dp"
         android:layout_marginTop="128dp"
         android:text="Done"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/purposeRadioGroup"
         app:layout_constraintTop_toBottomOf="@+id/PurposeViewText" />
 </android.support.constraint.ConstraintLayout>

@@ -32,7 +32,7 @@
 
     <Button
         android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
+        android:layout_width="152dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:layout_marginEnd="8dp"
@@ -126,6 +126,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/endDatePicker"
         app:layout_constraintTop_toBottomOf="@+id/backupButton" />
+
+    <Button
+        android:id="@+id/VisitDelete"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Delete Visit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/endDatePicker"
+        app:layout_constraintTop_toBottomOf="@+id/addPunchesButtons" />
 
 
 </android.support.constraint.ConstraintLayout>

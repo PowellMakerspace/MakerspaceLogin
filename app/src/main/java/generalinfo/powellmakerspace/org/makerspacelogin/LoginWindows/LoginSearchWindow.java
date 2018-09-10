@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class LoginSearchWindow extends AppCompatActivity {
     DatabaseHelper makerspaceDatabase;
     ListView memberListView;
     MemberAdapter memberAdapter;
+    Button cancelManualEntryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,16 @@ public class LoginSearchWindow extends AppCompatActivity {
                 Intent launchMemberConfirmWindow = new Intent(getApplicationContext(), MemberConfirmWindow.class);
                 launchMemberConfirmWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", allMembersList.get(position).getMemberID());
                 startActivity(launchMemberConfirmWindow);
+                finish();
+            }
+        });
+
+        cancelManualEntryButton = (Button) findViewById(R.id.cancelManualEntryButton);
+        cancelManualEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchLoginMethod = new Intent(getApplicationContext(),LoginMethodWindow.class);
+                startActivity(launchLoginMethod);
                 finish();
             }
         });

@@ -16,6 +16,7 @@ import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeW
 public class TourWindow extends AppCompatActivity {
 
     Button tourDoneButton;
+    Button cancelTourButton;
     EditText tourNameEditText;
     EditText visitorNumberEditText;
     DatabaseHelper makerspaceDatabase;
@@ -29,6 +30,7 @@ public class TourWindow extends AppCompatActivity {
         // Initialize database and activity components
         makerspaceDatabase = new DatabaseHelper(this);
         tourDoneButton = (Button) findViewById(R.id.tourDoneButton);
+        cancelTourButton = (Button) findViewById(R.id.cancelTourButton);
         tourNameEditText = (EditText) findViewById(R.id.tourNameEditText);
         visitorNumberEditText = (EditText) findViewById(R.id.visitorNumberEditText);
 
@@ -51,6 +53,15 @@ public class TourWindow extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Welcome to the Powell Makerspace!", Toast.LENGTH_LONG).show();
 
                 // Return to Welcome Window
+                Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                startActivity(launchWelcomeWindow);
+                finish();
+            }
+        });
+
+        cancelTourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
                 startActivity(launchWelcomeWindow);
                 finish();

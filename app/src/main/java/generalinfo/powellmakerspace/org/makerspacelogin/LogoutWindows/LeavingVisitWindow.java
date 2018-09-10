@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
 import generalinfo.powellmakerspace.org.makerspacelogin.Adapters.MemberAdapter;
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
 
@@ -24,6 +26,8 @@ public class LeavingVisitWindow extends AppCompatActivity {
     List<Member> presentMembers;
     ListView visitListView;
     MemberAdapter memberAdapter;
+
+    Button cancelLeavingVisit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,17 @@ public class LeavingVisitWindow extends AppCompatActivity {
                 Intent launchLeavingConfirm = new Intent(getApplicationContext(), LeavingVisitConfirmWindow.class);
                 launchLeavingConfirm.putExtra("org.powellmakerspace.generalinfo.VISIT_ID", currentVisits.get(position).getVisitID());
                 startActivity(launchLeavingConfirm);
+                finish();
+            }
+        });
+
+        // Initiate Cancel Button
+        cancelLeavingVisit = (Button) findViewById(R.id.cancelLeavingVisit);
+        cancelLeavingVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                startActivity(launchWelcomeWindow);
                 finish();
             }
         });

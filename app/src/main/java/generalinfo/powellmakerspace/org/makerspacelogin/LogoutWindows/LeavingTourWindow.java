@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class LeavingTourWindow extends AppCompatActivity {
     List<Tour> currentTours;
     ListView tourListView;
     TourAdapter tourAdapter;
+    Button cancelButtonLeavingTour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,15 @@ public class LeavingTourWindow extends AppCompatActivity {
         // Get all active tours from the database
         currentTours = makerspaceDatabase.getActiveTours();
 
-
+        cancelButtonLeavingTour = (Button) findViewById(R.id.cancelButtonLeavingTour);
+        cancelButtonLeavingTour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent leavingTypeIntent = new Intent(getApplicationContext(), LeavingTypeWindow.class);
+                startActivity(leavingTypeIntent);
+                finish();
+            }
+        });
 
 
         // Initiate ListView

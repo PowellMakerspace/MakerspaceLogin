@@ -20,6 +20,7 @@ public class UpdateWindow extends AppCompatActivity {
     RadioGroup updateMembershipRadioGroup;
     RadioButton membershipTypeRadioButton;
     Button updateMemberButton;
+    Button cancelUpdateButton;
     long member_id;
     Member member;
 
@@ -65,6 +66,16 @@ public class UpdateWindow extends AppCompatActivity {
                 Intent launchMemberConfirmWindow = new Intent(getApplicationContext(), MemberConfirmWindow.class);
                 launchMemberConfirmWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", member_id);
                 startActivity(launchMemberConfirmWindow);
+                finish();
+            }
+        });
+
+        cancelUpdateButton = (Button) findViewById(R.id.cancelUpdateButton);
+        cancelUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchLoginMethod = new Intent(getApplicationContext(), LoginMethodWindow.class);
+                startActivity(launchLoginMethod);
                 finish();
             }
         });

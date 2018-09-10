@@ -46,6 +46,7 @@ public class AdminMenu extends AppCompatActivity {
     Button recentsButton;
     Button backupButton;
     Button addPunchesButton;
+    Button deleteVisit;
 
     DatePicker startDatePicker;
     DatePicker endDatePicker;
@@ -117,6 +118,15 @@ public class AdminMenu extends AppCompatActivity {
                  startActivity(addPunchIntent);
                  finish();
 
+            }
+        });
+
+        deleteVisit = (Button) findViewById(R.id.VisitDelete);
+        deleteVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent VisitDeleteIntent = new Intent(getApplicationContext(), VisitDelete.class);
+                startActivity(VisitDeleteIntent);
             }
         });
     }

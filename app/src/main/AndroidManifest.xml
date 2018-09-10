@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginWindows.LoginMethodWindow" />
-        <!--<activity android:name=".LoginWindows.QRCodeWindow" />-->
+        <!-- <activity android:name=".LoginWindows.QRCodeWindow" /> -->
         <activity android:name=".LoginWindows.LoginSearchWindow" />
         <activity android:name=".LoginWindows.MemberConfirmWindow" />
         <activity android:name=".LoginWindows.ArrivingWindow" />
@@ -42,7 +42,11 @@
         <activity android:name=".LogoutWindows.LeavingTourConfirmWindow" />
         <activity android:name=".AdminWindows.AdminLogin" />
         <activity android:name=".AdminWindows.AdminMenu" />
-        <activity android:name=".AdminWindows.AdminAddPunch"></activity>
+        <activity android:name=".AdminWindows.AdminAddPunch" />
+        <activity
+            android:name=".AdminWindows.VisitDelete"
+            android:label="@string/title_activity_visit_delete"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

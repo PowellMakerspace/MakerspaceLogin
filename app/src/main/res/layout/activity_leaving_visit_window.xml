@@ -22,15 +22,28 @@
     <ListView
         android:id="@+id/visitListView"
         android:layout_width="1239dp"
-        android:layout_height="560dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="500dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:scrollbars="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findYourVisitViewText" />
+
+    <Button
+        android:id="@+id/cancelLeavingVisit"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Cancel"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitListView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -16,6 +16,9 @@ import generalinfo.powellmakerspace.org.makerspacelogin.R;
 public class LoginMethodWindow extends AppCompatActivity {
 
     long member_id;
+    Button qrcodeButton;
+    Button manualButton;
+    Button cancelReturningButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,7 @@ public class LoginMethodWindow extends AppCompatActivity {
         setContentView(R.layout.activity_login_method_window);
 
         // Launch QR Code Reader
-        Button qrcodeButton = (Button) findViewById(R.id.qrcodeButton);
+        qrcodeButton = (Button) findViewById(R.id.qrcodeButton);
         final Activity activity = this;
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,12 +42,22 @@ public class LoginMethodWindow extends AppCompatActivity {
         });
 
         // Launch Login Search Window
-        Button manualButton = (Button) findViewById(R.id.manualButton);
+        manualButton = (Button) findViewById(R.id.manualButton);
         manualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent launchLoginSearch = new Intent(getApplicationContext(), LoginSearchWindow.class);
                 startActivity(launchLoginSearch);
+                finish();
+            }
+        });
+
+        cancelReturningButton = (Button) findViewById(R.id.cancelReturningButton);
+        cancelReturningButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchArrivingWindow = new Intent(getApplicationContext(), ArrivingWindow.class);
+                startActivity(launchArrivingWindow);
                 finish();
             }
         });

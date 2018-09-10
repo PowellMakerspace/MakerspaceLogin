@@ -8,23 +8,39 @@
 
     <Button
         android:id="@+id/leavingVisitButton"
-        android:layout_width="220dp"
-        android:layout_height="114dp"
-        android:layout_marginStart="248dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="304dp"
         android:layout_marginTop="248dp"
         android:text="Leaving Visit"
-        android:textSize="18sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/leavingTourButton"
-        android:layout_width="203dp"
-        android:layout_height="120dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_marginStart="272dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="248dp"
         android:text="Leaving Tour"
-        android:textSize="18sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/leavingVisitButton"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cancelLeavingTypeButton"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="14sp"
+        android:text="Cancel"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leavingTourButton" />
 </android.support.constraint.ConstraintLayout>
