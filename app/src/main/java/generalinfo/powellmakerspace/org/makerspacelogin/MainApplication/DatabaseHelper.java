@@ -868,7 +868,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         try (Cursor c = db.rawQuery(selectQuery,null)) {
             while (c.moveToNext()){
-                Log.e("Debuging", format("Member Type %s;  Visit Count %d", c.getString(0), c.getInt(1)));
+                Log.e("Debugging", format("Member Type %s;  Visit Count %d", c.getString(0), c.getInt(1)));
 
                 membershipTotals.put(c.getString(0),c.getInt(1));
             }

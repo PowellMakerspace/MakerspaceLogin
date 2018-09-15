@@ -38,6 +38,7 @@ import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.Database
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.DatabaseBackupUtility;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.GenerateReportUtility;
 
 public class AdminMenu extends AppCompatActivity {
 
@@ -53,12 +54,16 @@ public class AdminMenu extends AppCompatActivity {
 
     DatabaseHelper makerspaceDatabase;
 
+    GenerateReportUtility generateReportUtility;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
 
         makerspaceDatabase = new DatabaseHelper(this);
+
+//        generateReportUtility = new GenerateReportUtility(makerspaceDatabase);
 
         startDatePicker = (DatePicker) findViewById(R.id.startDatePicker);
         endDatePicker = (DatePicker) findViewById(R.id.endDatePicker);
@@ -83,13 +88,9 @@ public class AdminMenu extends AppCompatActivity {
                 long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
                         endDatePicker.getDayOfMonth(),23,59,59);
 
-                Log.e("debugging", "test");
-                makerspaceDatabase.getMembershipTotals(startDate, endDate);
-                makerspaceDatabase.getPurposeTimes(startDate, endDate);
-                makerspaceDatabase.getTotalVisits(startDate, endDate);
-                makerspaceDatabase.getUniqueVisits(startDate, endDate);
+                new ExportReport().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-//                Report report = new Report(getApplicationContext(), startDate, endDate);
+
                 Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
             }
         });
@@ -145,9 +146,20 @@ public class AdminMenu extends AppCompatActivity {
     }
 
 
-    private void shareFile(File file){
+    private void shareFileBackup(File file){
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("application/zip");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        startActivity(Intent.createChooser(shareIntent,"Share CSV"));
+    }
+
+    private void shareFileCSV(File file){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -186,7 +198,44 @@ public class AdminMenu extends AppCompatActivity {
                 this.dialog.dismiss();
             }
             if (success) {
-                shareFile(databaseBackupFile);
+                shareFileBackup(databaseBackupFile);
+            } else {
+                Toast.makeText(AdminMenu.this, "Export failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class ExportReport extends AsyncTask<String, Void, Boolean> {
+
+        private final ProgressDialog dialog = new ProgressDialog(AdminMenu.this);
+        private File reportWorkingFile;
+
+        @Override
+        protected void onPreExecute() {
+            this.dialog.setMessage("Exporting Report...");
+            this.dialog.show();
+        }
+
+        protected Boolean doInBackground(final String... args) {
+            File exportDirectory = new File(
+                    Environment.getExternalStorageDirectory(), "makerspaceReportExport");
+
+            // Run Db Backup utility
+            DatabaseHelper makerspaceDatabase = new DatabaseHelper(AdminMenu.this);
+            GenerateReportUtility generateReportUtility = new GenerateReportUtility(makerspaceDatabase, exportDirectory);
+            generateReportUtility.generateReport(1536537600, 1537045524); // Will need to figure out how to enter this programmatically
+
+            // Get backup file
+            reportWorkingFile = generateReportUtility.getReportFile();
+            return reportWorkingFile != null;
+        }
+
+        protected void onPostExecute(final Boolean success) {
+            if (this.dialog.isShowing()) {
+                this.dialog.dismiss();
+            }
+            if (success) {
+                shareFileCSV(reportWorkingFile);
             } else {
                 Toast.makeText(AdminMenu.this, "Export failed", Toast.LENGTH_SHORT).show();
             }

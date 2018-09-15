@@ -8,6 +8,10 @@ import java.util.Map;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 
+
+/**
+ * THIS CLASS IS GOING TO BE REMOVED
+ */
 public class Report {
     List<Visit> visits;
     List<Tour> tours;

@@ -68,6 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/MakerspaceLogo" />
+        app:srcCompat="@drawable/makerspace_logo" />
 
 </android.support.constraint.ConstraintLayout>
