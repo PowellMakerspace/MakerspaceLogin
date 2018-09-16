@@ -4,12 +4,18 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
+import org.apache.commons.csv.CSVPrinter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Map;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.ExportDatabaseTests.CSVWriter;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.reports.SqlIntegerStatisticGenerator;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.reports.StatisticGenerator;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.reports.StatisticResult;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.reports.UniqueVisitsStatisticGenerator;
 
 
 public class GenerateReportUtility {
@@ -31,6 +37,10 @@ public class GenerateReportUtility {
 
     public void generateReport(long startDate, long endDate){
 
+        StatisticGenerator[] statisticGenerators = new StatisticGenerator[]{
+                new UniqueVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate)
+        };
+
 
         // Verify Directory exists and is empty
         reportWorkingDirectory.mkdirs();
@@ -44,20 +54,16 @@ public class GenerateReportUtility {
         // Try block to write the data
         try{
             csvReportFile.createNewFile();
-            CSVWriter csvWriter = new CSVWriter(new FileWriter(csvReportFile));
+            CSVPrinter csvPrinter = new CSVPrinter();
 
             //Collect Report information
-            int totalVisits = databaseHelper.getTotalVisits(startDate, endDate);
-            int uniqueVisits = databaseHelper.getUniqueVisits(startDate, endDate);
-//            Map<String,Integer> membershipTotals = databaseHelper.getMembershipTotals(startDate, endDate);
-//            Map<String,Integer> purposeTimes = databaseHelper.getPurposeTimes(startDate, endDate);
-
-            //Write Information to file
-            csvWriter.writeNext(new String[]{"Total Visits", Integer.toString(totalVisits)});
-            csvWriter.writeNext(new String[]{"Unique Visits",Integer.toString(uniqueVisits)});
+            for (StatisticGenerator statisticGenerator : statisticGenerators){
+                StatisticResult statisticResult = statisticGenerator.generateStatistic();
+                statisticResult.toCsv(csvPrinter);
+            }
 
             // Close csv File
-            csvWriter.close();
+            csvPrinter.close();
         }
         catch (Exception sqlEx){
             Log.e("SQLite Error",sqlEx.getMessage(),sqlEx);
@@ -69,3 +75,10 @@ public class GenerateReportUtility {
     }
 
 }
+
+
+
+//    int totalVisits = databaseHelper.getTotalVisits(startDate, endDate);
+//    int uniqueVisits = databaseHelper.getUniqueVisits(startDate, endDate);
+//            Map<String,Integer> membershipTotals = databaseHelper.getMembershipTotals(startDate, endDate);
+//            Map<String,Integer> purposeTimes = databaseHelper.getPurposeTimes(startDate, endDate);
