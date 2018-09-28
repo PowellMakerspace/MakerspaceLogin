@@ -220,10 +220,16 @@ public class AdminMenu extends AppCompatActivity {
             File exportDirectory = new File(
                     Environment.getExternalStorageDirectory(), "makerspaceReportExport");
 
-            // Run Db Backup utility
+            // Get Dates
+            long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
+                    startDatePicker.getDayOfMonth(),0,0,0);
+            long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
+                    endDatePicker.getDayOfMonth(),23,59,59);
+
+            // Run Generate Report Utility
             DatabaseHelper makerspaceDatabase = new DatabaseHelper(AdminMenu.this);
             GenerateReportUtility generateReportUtility = new GenerateReportUtility(makerspaceDatabase, exportDirectory);
-            generateReportUtility.generateReport(1536537600, 1537045524); // Will need to figure out how to enter this programmatically
+            generateReportUtility.generateReport(startDate, endDate);
 
             // Get backup file
             reportWorkingFile = generateReportUtility.getReportFile();

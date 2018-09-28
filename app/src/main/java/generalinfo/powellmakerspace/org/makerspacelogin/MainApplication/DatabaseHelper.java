@@ -946,13 +946,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
+        int uniqueVisits = 0;
+
         try(Cursor c = db.rawQuery(selectQuery,null)){
             while(c.moveToNext()){
+                c.moveToNext();
+                uniqueVisits = c.getInt(0);
                 Log.e("Debugging",c.getString(0));
+
             }
         }
 
-        return 0;
+        return uniqueVisits;
     }
 
     /**
