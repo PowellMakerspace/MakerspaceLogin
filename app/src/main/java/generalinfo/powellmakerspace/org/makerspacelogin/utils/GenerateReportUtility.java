@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVPrinter;
 
 import generalinfo.powellmakerspace.org.makerspacelogin.ExportDatabaseTests.CSVWriter;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.statistic.PurposeVisitsStatisticGenerator;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.statistic.StatisticGenerator;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.statistic.StatisticResult;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.statistic.TotalVisitsStatisticGenerator;
@@ -38,6 +39,12 @@ public class GenerateReportUtility {
         StatisticGenerator[] statisticGenerators = new StatisticGenerator[]{
                 new TotalVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate),
                 new UniqueVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Class"),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Teach"),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Work on Project"),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Business Work"),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Meeting"),
+                new PurposeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"VISTA"),
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate, "CoWorkspace"),
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Volunteer"),
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Individual"),
@@ -46,7 +53,7 @@ public class GenerateReportUtility {
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Library Pass"),
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"NWC Student"),
                 new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Punch Pass"),
-                new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Kitchen Renter"),
+                new TypeVisitsStatisticGenerator(databaseHelper.getReadableDatabase(), startDate, endDate,"Kitchen Renter")
         };
 
         // Verify Directory exists and is empty
