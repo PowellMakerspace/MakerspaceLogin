@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows.reportWindows.preReportPreview;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Report;
 import generalinfo.powellmakerspace.org.makerspacelogin.ExportDatabaseTests.CSVWriter;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
@@ -83,17 +84,33 @@ public class AdminMenu extends AppCompatActivity {
         fullReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
-                        startDatePicker.getDayOfMonth(),0,0,0);
-                long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
-                        endDatePicker.getDayOfMonth(),23,59,59);
-
-                new ExportReport().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
-                Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
+                Intent launchPreReportWindow = new Intent(getApplicationContext(), preReportPreview.class);
+                launchPreReportWindow.putExtra("org.powellmakerspace.generalinfo.ARRIVAL_TIME",
+                        convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
+                                startDatePicker.getDayOfMonth(),0,0,0));
+                launchPreReportWindow.putExtra("org.powellmakerspace.generalinfo.DEPARTURE_TIME",
+                        convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
+                                endDatePicker.getDayOfMonth(),23,59,59));
+                startActivity(launchPreReportWindow);
+                finish();
             }
         });
+
+//        fullReportButton = (Button) findViewById(R.id.fullReportButton);
+//        fullReportButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
+//                        startDatePicker.getDayOfMonth(),0,0,0);
+//                long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
+//                        endDatePicker.getDayOfMonth(),23,59,59);
+//
+//                new ExportReport().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//
+//
+//                Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         recentsButton = (Button) findViewById(R.id.recentsButton);
         recentsButton.setOnClickListener(new View.OnClickListener() {
