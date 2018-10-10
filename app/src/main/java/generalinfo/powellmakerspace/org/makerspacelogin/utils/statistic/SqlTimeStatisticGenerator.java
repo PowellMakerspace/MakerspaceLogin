@@ -22,18 +22,6 @@ public class SqlTimeStatisticGenerator implements StatisticGenerator {
     @Override
     public StatisticResult generateStatistic(){
 
-//        List<String> types = new ArrayList<String>();
-//        List<Integer> results = new ArrayList<Integer>();
-//
-//        try(Cursor c = db.rawQuery(sqlQuery, null)){
-//
-//
-//            while (c.moveToNext()){
-//                 types.add(c.getString(0));
-//                 results.add(c.getInt(1));
-//            }
-//
-//        }
         int result;
         try(Cursor c = db.rawQuery(sqlQuery, null)){
             c.moveToNext();

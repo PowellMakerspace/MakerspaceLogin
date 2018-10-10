@@ -9,10 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Tour;
+
 public class TimeStatisticResult implements StatisticResult {
 
     private String fieldName;
     private int result;
+    private List<Tour> tours;
 
     private int hours;
     private int minutes;
@@ -33,4 +36,5 @@ public class TimeStatisticResult implements StatisticResult {
         csvPrinter.printRecord(fieldName, Integer.toString(hours) + ":" +
                 Integer.toString(minutes) + ":" + Integer.toString(seconds));
     }
+
 }
