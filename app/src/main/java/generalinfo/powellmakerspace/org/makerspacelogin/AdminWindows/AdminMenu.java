@@ -204,46 +204,5 @@ public class AdminMenu extends AppCompatActivity {
         }
     }
 
-    public class ExportReport extends AsyncTask<String, Void, Boolean> {
 
-        private final ProgressDialog dialog = new ProgressDialog(AdminMenu.this);
-        private File reportWorkingFile;
-
-        @Override
-        protected void onPreExecute() {
-            this.dialog.setMessage("Exporting Report...");
-            this.dialog.show();
-        }
-
-        protected Boolean doInBackground(final String... args) {
-            File exportDirectory = new File(
-                    Environment.getExternalStorageDirectory(), "makerspaceReportExport");
-
-            // Get Dates
-            long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
-                    startDatePicker.getDayOfMonth(),0,0,0);
-            long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
-                    endDatePicker.getDayOfMonth(),23,59,59);
-
-            // Run Generate Report Utility
-            DatabaseHelper makerspaceDatabase = new DatabaseHelper(AdminMenu.this);
-            GenerateReportUtility generateReportUtility = new GenerateReportUtility(makerspaceDatabase, exportDirectory);
-            generateReportUtility.generateReport(startDate, endDate);
-
-            // Get backup file
-            reportWorkingFile = generateReportUtility.getReportFile();
-            return reportWorkingFile != null;
-        }
-
-        protected void onPostExecute(final Boolean success) {
-            if (this.dialog.isShowing()) {
-                this.dialog.dismiss();
-            }
-            if (success) {
-                shareFileCSV(reportWorkingFile);
-            } else {
-                Toast.makeText(AdminMenu.this, "Export failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }

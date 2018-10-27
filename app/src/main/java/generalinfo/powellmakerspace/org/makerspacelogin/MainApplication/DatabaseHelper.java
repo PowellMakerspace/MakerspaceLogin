@@ -601,6 +601,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return visits;
     }
 
+    /**
+     * Return all visits with a given time frame
+     *
+     * @param startDateTime long unix timestamp for beginning of time frame
+     * @param endDateTime   long unix timestamp for ending of time frame
+     * @param durationHours int duration threshold of visit suspicion
+     * @return list of all visit objects within time frame
+     */
+    public List<Visit> getVisitsWithDurationGreaterThan(long startDateTime, long endDateTime, int durationHours) {
+
+        // Create visit list
+        List<Visit> visits = new ArrayList<>();
+
+        // Duration Creation in Seconds
+        int durationSeconds = durationHours * 60 * 60;
+
+        // Define query
+        String selectQuery = "SELECT * FROM " + TABLE_VISITS + " WHERE " + KEY_ARRIVAL_TIME + " > " + startDateTime
+                + " AND " + KEY_DEPARTURE_TIME + " < " + endDateTime + " AND " +
+                KEY_DEPARTURE_TIME + " - " + KEY_ARRIVAL_TIME +  " > " + durationSeconds;
+
+        // Add query to Database Log
+        Log.e(LOG, selectQuery);
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if (c.moveToFirst()) {
+            do {
+                Visit visit = new Visit();
+                visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
+                visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+                visit.setArrivalTime(c.getLong(c.getColumnIndex(KEY_ARRIVAL_TIME)));
+                visit.setDepartureTime(c.getLong(c.getColumnIndex(KEY_DEPARTURE_TIME)));
+                visit.setVisitPurpose(c.getString(c.getColumnIndex(KEY_VISIT_PURPOSE)));
+
+                // Add to the visit list
+                visits.add(visit);
+            } while (c.moveToNext());
+        }
+
+        // Close cursor
+        c.close();
+
+        // Return list of visits
+        return visits;
+    }
+
+    /**
+     * Returns all visits in database
+     *
+     * @return list of all visits
+     */
     public List<Visit> getAllVisits(){
 
         // Create visit list
