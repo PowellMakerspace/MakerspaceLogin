@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/adminMenuEditText" />
 
     <DatePicker
-        android:id="@+id/startDatePicker"
+        android:id="@+id/arrivalDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -100,7 +100,7 @@
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.039"
-        app:layout_constraintStart_toEndOf="@+id/startDatePicker"
+        app:layout_constraintStart_toEndOf="@+id/arrivalDatePicker"
         app:layout_constraintTop_toBottomOf="@+id/endDateTextView" />
 
     <Button

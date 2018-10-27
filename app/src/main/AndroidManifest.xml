@@ -47,7 +47,8 @@
             android:name=".AdminWindows.VisitDelete"
             android:label="@string/title_activity_visit_delete"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AdminWindows.reportWindows.preReportPreview"></activity>
+        <activity android:name=".AdminWindows.reportWindows.PreReportPreview" />
+        <activity android:name=".AdminWindows.reportWindows.VisitEditWindow"></activity>
     </application>
 
 </manifest>

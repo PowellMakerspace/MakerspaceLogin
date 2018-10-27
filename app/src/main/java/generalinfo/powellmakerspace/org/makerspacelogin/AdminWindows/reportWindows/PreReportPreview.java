@@ -16,7 +16,7 @@ import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
-public class preReportPreview extends AppCompatActivity {
+public class PreReportPreview extends AppCompatActivity {
 
     DatabaseHelper makerspaceDatabase;
     ListView visitsToReviewView;
@@ -37,7 +37,8 @@ public class preReportPreview extends AppCompatActivity {
         long endDate = getIntent().getLongExtra("org.powellmakerspace.generalinfo.DEPARTURE_TIME",-1);
 
         // Get all visits from the database
-        List<Visit> visitsToReview = makerspaceDatabase.getVisitsFromRange(startDate, endDate);
+//        List<Visit> visitsToReview = makerspaceDatabase.getVisitsFromRange(startDate, endDate);
+        List<Visit> visitsToReview = makerspaceDatabase.getAllVisits();
 
         // Initiate Listview
         visitsToReviewView = (ListView) findViewById(R.id.visitsToReview);
@@ -47,7 +48,11 @@ public class preReportPreview extends AppCompatActivity {
         visitsToReviewView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent launchVisitEditWindow = new Intent(getApplicationContext(), VisitEditWindow.class);
+                launchVisitEditWindow.putExtra("org.powellmakerspace.generalinfo.EDIT_VISIT_ID", visitsToReview.get(position).getVisitID());
+                launchVisitEditWindow.putExtra("org.powellmakerspace.generalinfo.ARRIVAL_TIME",startDate);
+                launchVisitEditWindow.putExtra("org.powellmakerspace.generalinfo.DEPARTURE_TIME",endDate);
+                startActivity(launchVisitEditWindow);
             }
         });
 

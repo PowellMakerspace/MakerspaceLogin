@@ -1,40 +1,22 @@
 package generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
-import generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows.reportWindows.preReportPreview;
-import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Report;
-import generalinfo.powellmakerspace.org.makerspacelogin.ExportDatabaseTests.CSVWriter;
+import generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows.reportWindows.PreReportPreview;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
@@ -66,7 +48,7 @@ public class AdminMenu extends AppCompatActivity {
 
 //        generateReportUtility = new GenerateReportUtility(makerspaceDatabase);
 
-        startDatePicker = (DatePicker) findViewById(R.id.startDatePicker);
+        startDatePicker = (DatePicker) findViewById(R.id.arrivalDatePicker);
         endDatePicker = (DatePicker) findViewById(R.id.endDatePicker);
 
 
@@ -84,7 +66,7 @@ public class AdminMenu extends AppCompatActivity {
         fullReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchPreReportWindow = new Intent(getApplicationContext(), preReportPreview.class);
+                Intent launchPreReportWindow = new Intent(getApplicationContext(), PreReportPreview.class);
                 launchPreReportWindow.putExtra("org.powellmakerspace.generalinfo.ARRIVAL_TIME",
                         convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
                                 startDatePicker.getDayOfMonth(),0,0,0));

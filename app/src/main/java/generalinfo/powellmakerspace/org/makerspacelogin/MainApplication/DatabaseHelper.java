@@ -601,6 +601,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return visits;
     }
 
+    public List<Visit> getAllVisits(){
+
+        // Create visit list
+        List<Visit> visits = new ArrayList<>();
+
+        // Define query
+        String selectQuery = "SELECT * FROM " + TABLE_VISITS;
+
+        // Add query to Database Log
+        Log.e(LOG, selectQuery);
+
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if (c.moveToFirst()) {
+            do {
+                Visit visit = new Visit();
+                visit.setVisitID(c.getInt(c.getColumnIndex(KEY_VISIT_ID)));
+                visit.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+                visit.setArrivalTime(c.getLong(c.getColumnIndex(KEY_ARRIVAL_TIME)));
+                visit.setDepartureTime(c.getLong(c.getColumnIndex(KEY_DEPARTURE_TIME)));
+                visit.setVisitPurpose(c.getString(c.getColumnIndex(KEY_VISIT_PURPOSE)));
+
+                // Add to the visit list
+                visits.add(visit);
+            } while (c.moveToNext());
+        }
+
+        // Close cursor
+        c.close();
+
+        // Return list of visits
+        return visits;
+    }
+
     /**
      * _______________________________________________________________________________________
      * Methods for interacting with the Survey Table of the Database
