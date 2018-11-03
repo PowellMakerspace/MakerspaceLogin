@@ -27,6 +27,7 @@ public class LoginSearchWindow extends AppCompatActivity {
 
     EditText memberSearchBox;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,11 @@ public class LoginSearchWindow extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 List<Member> filteredMembersList = makerspaceDatabase.filterMembersByName(s.toString());
-                MemberAdapter filteredAdapter = new MemberAdapter(getApplicationContext(), filteredMembersList);
+                allMembersList.clear();
+                for (Member member : filteredMembersList){
+                    allMembersList.add(member);
+                }
+                MemberAdapter filteredAdapter = new MemberAdapter(getApplicationContext(), allMembersList);
                 memberListView.setAdapter(filteredAdapter);
             }
         });
