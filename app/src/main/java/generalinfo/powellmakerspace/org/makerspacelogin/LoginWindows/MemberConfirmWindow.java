@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Visit;
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.DatabaseHelper;
 import generalinfo.powellmakerspace.org.makerspacelogin.Classes.Member;
+import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class MemberConfirmWindow extends AppCompatActivity {
@@ -77,18 +81,35 @@ public class MemberConfirmWindow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (member.getPunchPasses() > -1){
-                    int tempPunchNumber = member.getPunchPasses();
-                    member.setPunchPasses(tempPunchNumber - 1);
-                    makerspaceDatabase.updateMember(member);
-                    Toast.makeText(getApplicationContext(),"One punch has been used.",Toast.LENGTH_LONG).show();
+                Boolean loggedIn = false;
+
+                List<Visit> activeVisits = makerspaceDatabase.getActiveVisits();
+                for (Visit visit: activeVisits){
+                    if (visit.getMemberID() == member.getMemberID()){
+                        loggedIn = true;
+                    }
                 }
 
-                // Launch Purpose Window
-                Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
-                launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID",member_id);
-                startActivity(launchPurposeWindow);
-                finish();
+                if (loggedIn == false) {
+                    if (member.getPunchPasses() > -1) {
+                        int tempPunchNumber = member.getPunchPasses();
+                        member.setPunchPasses(tempPunchNumber - 1);
+                        makerspaceDatabase.updateMember(member);
+                        Toast.makeText(getApplicationContext(), "One punch has been used.", Toast.LENGTH_LONG).show();
+                    }
+
+                    // Launch Purpose Window
+                    Intent launchPurposeWindow = new Intent(getApplicationContext(), PurposeWindow.class);
+                    launchPurposeWindow.putExtra("org.powellmakerspace.generalinfo.MEMBER_ID", member_id);
+                    startActivity(launchPurposeWindow);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"You are already Logged In", Toast.LENGTH_LONG).show();
+                    Intent launchWelcomeWindow = new Intent(getApplicationContext(), WelcomeWindow.class);
+                    startActivity(launchWelcomeWindow);
+                    finish();
+                }
             }
         });
 
