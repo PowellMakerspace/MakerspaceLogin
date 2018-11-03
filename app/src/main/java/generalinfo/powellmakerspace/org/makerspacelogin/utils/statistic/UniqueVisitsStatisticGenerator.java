@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class UniqueVisitsStatisticGenerator implements StatisticGenerator {
 
     private static String UNIQUE_VISITS =
-            "SELECT DISTINCT " +
-                    "VISITS.member_id " +
+            "SELECT COUNT (DISTINCT " +
+                    "VISITS.member_id) " +
             "FROM " +
                     "Visits " +
             "WHERE " +

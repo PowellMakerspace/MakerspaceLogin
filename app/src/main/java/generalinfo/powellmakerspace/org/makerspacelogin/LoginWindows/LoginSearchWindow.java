@@ -3,9 +3,12 @@ package generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -22,6 +25,8 @@ public class LoginSearchWindow extends AppCompatActivity {
     MemberAdapter memberAdapter;
     Button cancelManualEntryButton;
 
+    EditText memberSearchBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,27 @@ public class LoginSearchWindow extends AppCompatActivity {
 
         // Get all members from the database
         List<Member> allMembersList = makerspaceDatabase.getAllMembers();
+
+        // Initiate Filter Text Bar
+        memberSearchBox = (EditText) findViewById(R.id.memberSearchBox);
+        memberSearchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                List<Member> filteredMembersList = makerspaceDatabase.filterMembersByName(s.toString());
+                MemberAdapter filteredAdapter = new MemberAdapter(getApplicationContext(), filteredMembersList);
+                memberListView.setAdapter(filteredAdapter);
+            }
+        });
 
         // Initiate Listview
         memberListView = (ListView) findViewById(R.id.memberListView);

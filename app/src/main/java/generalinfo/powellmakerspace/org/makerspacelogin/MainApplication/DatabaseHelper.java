@@ -226,7 +226,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Return member object
         return member;
     }
+    /**
+     * Filter members based on name.
+     *
+     * @param character_sequence String for the partial name of the member filtering by
+     * @return member object with all of the relevant member information
+     * There seems to be a problem with this code... unknown why
+     */
+    public List<Member> filterMembersByName(String character_sequence) {
+        // Define member list
+        List<Member> members = new ArrayList<Member>();
 
+        // Get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define query string
+        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + KEY_MEMBER_NAME + " LIKE "
+                + "'" + character_sequence + "%'" + " ORDER BY " + KEY_MEMBER_NAME + " COLLATE NOCASE";
+
+        // Add query to database log
+        Log.e(LOG, selectQuery);
+
+        // Define cursor for query
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // As long as the cursor isn't null, move to the first
+        // Loop through all rows and add them to list
+        if (c.moveToFirst()) {
+            do {
+                Member member = new Member();
+                member.setMemberID(c.getInt(c.getColumnIndex(KEY_MEMBER_ID)));
+                member.setMemberName(c.getString(c.getColumnIndex(KEY_MEMBER_NAME)));
+                member.setMembershipType(c.getString(c.getColumnIndex(KEY_MEMBERSHIP_TYPE)));
+                member.setPunchPasses(c.getInt(c.getColumnIndex(KEY_PUNCH_PASSES)));
+
+                // Add to member list
+                members.add(member);
+            } while (c.moveToNext());
+        }
+
+        //Return member list
+        return members;
+    }
     /**
      * Gets all of the member information
      *
@@ -238,7 +279,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Member> members = new ArrayList<Member>();
 
         // Define query string
-        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS;
+        String selectQuery = "SELECT * FROM " + TABLE_MEMBERS + " ORDER BY " + KEY_MEMBER_NAME + " COLLATE NOCASE";
 
         // Add query to database log
         Log.e(LOG, selectQuery);
