@@ -10,9 +10,11 @@ import generalinfo.powellmakerspace.org.makerspacelogin.AdminWindows.AdminLogin;
 import generalinfo.powellmakerspace.org.makerspacelogin.LoginWindows.ArrivingWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.LogoutWindows.LeavingTypeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.GenerateHeatMap;
 
 public class WelcomeWindow extends AppCompatActivity {
 
+    // Initiate UI components
     Button arrivingButton;
     Button leavingButton;
     Button adminButton;

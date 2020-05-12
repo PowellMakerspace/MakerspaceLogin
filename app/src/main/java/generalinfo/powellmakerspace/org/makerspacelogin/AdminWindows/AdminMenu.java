@@ -21,6 +21,7 @@ import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.Database
 import generalinfo.powellmakerspace.org.makerspacelogin.MainApplication.WelcomeWindow;
 import generalinfo.powellmakerspace.org.makerspacelogin.R;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.DatabaseBackupUtility;
+import generalinfo.powellmakerspace.org.makerspacelogin.utils.GenerateHeatMap;
 import generalinfo.powellmakerspace.org.makerspacelogin.utils.GenerateReportUtility;
 
 public class AdminMenu extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class AdminMenu extends AppCompatActivity {
     Button backupButton;
     Button addPunchesButton;
     Button deleteVisit;
+    Button heatMapButton;
 
     DatePicker startDatePicker;
     DatePicker endDatePicker;
@@ -46,7 +48,7 @@ public class AdminMenu extends AppCompatActivity {
 
         makerspaceDatabase = new DatabaseHelper(this);
 
-//        generateReportUtility = new GenerateReportUtility(makerspaceDatabase);
+        GenerateHeatMap heatMap = new GenerateHeatMap(this.getApplicationContext());
 
         startDatePicker = (DatePicker) findViewById(R.id.arrivalDatePicker);
         endDatePicker = (DatePicker) findViewById(R.id.endDatePicker);
@@ -78,26 +80,12 @@ public class AdminMenu extends AppCompatActivity {
             }
         });
 
-//        fullReportButton = (Button) findViewById(R.id.fullReportButton);
-//        fullReportButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                long startDate = convertToUnixTimeStamp(startDatePicker.getYear(),startDatePicker.getMonth(),
-//                        startDatePicker.getDayOfMonth(),0,0,0);
-//                long endDate = convertToUnixTimeStamp(endDatePicker.getYear(),endDatePicker.getMonth(),
-//                        endDatePicker.getDayOfMonth(),23,59,59);
-//
-//                new ExportReport().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//
-//
-//                Toast.makeText(getApplicationContext(),"IT WORKED", Toast.LENGTH_LONG).show();
-//            }
-//        });
 
         recentsButton = (Button) findViewById(R.id.recentsButton);
         recentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(getApplicationContext(),"View Recent Members",Toast.LENGTH_LONG).show();
             }
         });
@@ -127,6 +115,15 @@ public class AdminMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent VisitDeleteIntent = new Intent(getApplicationContext(), VisitDelete.class);
                 startActivity(VisitDeleteIntent);
+            }
+        });
+
+        heatMapButton = (Button) findViewById(R.id.heatMapButton);
+        heatMapButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                File file = heatMap.create();
+                shareFileCSV(file);
             }
         });
     }

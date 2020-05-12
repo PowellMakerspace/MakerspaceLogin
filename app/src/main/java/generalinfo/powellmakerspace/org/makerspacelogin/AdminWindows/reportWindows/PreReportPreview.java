@@ -29,6 +29,8 @@ import generalinfo.powellmakerspace.org.makerspacelogin.utils.GenerateReportUtil
 public class PreReportPreview extends AppCompatActivity {
 
     DatabaseHelper makerspaceDatabase;
+
+    //Initiate UI Components
     ListView visitsToReviewView;
     VisitsToReviewAdapter visitsToReviewAdapter;
     Button cancelReportButton;
@@ -42,6 +44,7 @@ public class PreReportPreview extends AppCompatActivity {
         // Begin Database Helper
         makerspaceDatabase = new DatabaseHelper(this);
 
+        // Get information passed into activity
         long startDate = getIntent().getLongExtra("org.powellmakerspace.generalinfo.ARRIVAL_TIME",-1);
         long endDate = getIntent().getLongExtra("org.powellmakerspace.generalinfo.DEPARTURE_TIME",-1);
 
@@ -49,7 +52,7 @@ public class PreReportPreview extends AppCompatActivity {
         List<Visit> visitsToReview = makerspaceDatabase.getVisitsWithDurationGreaterThan(startDate,
                 endDate, 6);
 
-        // Initiate Listview
+        // Initiate List view
         visitsToReviewView = (ListView) findViewById(R.id.visitsToReview);
         visitsToReviewAdapter = new VisitsToReviewAdapter(this, visitsToReview);
         visitsToReviewView.setAdapter(visitsToReviewAdapter);

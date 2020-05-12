@@ -13,6 +13,7 @@ import generalinfo.powellmakerspace.org.makerspacelogin.R;
 
 public class ArrivingWindow extends AppCompatActivity {
 
+    // Initiate UI Components
     Button returningMemberButton;
     Button newMemberButton;
     Button tourButton;
