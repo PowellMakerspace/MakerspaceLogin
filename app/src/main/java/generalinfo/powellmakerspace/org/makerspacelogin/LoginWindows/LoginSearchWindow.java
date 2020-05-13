@@ -66,8 +66,6 @@ public class LoginSearchWindow extends AppCompatActivity {
 
         // Initiate Listview
         memberListView = (ListView) findViewById(R.id.memberListView);
-        memberAdapter = new MemberAdapter(this, allMembersList);
-        memberListView.setAdapter(memberAdapter);
 
         memberListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
